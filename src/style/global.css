@@ -1,0 +1,20 @@
+$blue: #3369F3;
+
+.button-contained {
+    width: 280px;
+    height: 37px;
+    background-color: $blue;
+    text-align: center;
+    color: white;
+    font-family: 'Inter-Regular';    
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.link {
+    color: $blue;
+    font-family: 'Inter-Regular';
+    font-size: 11px;
+    text-decoration: none;
+}
