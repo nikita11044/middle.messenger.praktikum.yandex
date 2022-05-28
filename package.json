@@ -2,8 +2,8 @@
   "name": "telechat",
   "version": "0.0.1",
   "scripts": {
-    "build": "parcel build src/pages/index.hbs --no-cache --public-url ./",
-    "start": "parcel src/pages/index.hbs --no-cache && parcel watch ./src/*"
+    "build": "parcel build src/pages/signIn.hbs --no-cache --public-url ./",
+    "start": "parcel src/pages/signIn.hbs --no-cache && parcel watch ./src/*"
   },
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "^1.0.9",
