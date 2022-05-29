@@ -1,0 +1,36 @@
+{
+    "chats": [
+        {
+            "avatar": null,
+            "selected": false,
+            "chatName": "Андрей",
+            "lastMessageTime": "10:49",
+            "lastMessage": "Изображение",
+            "lastMessageCount": 2
+        },
+        {
+          "avatar": null,
+          "selected": false,
+          "chatName": "Киноклуб",
+          "lastMessageTime": "12:00",
+          "lastMessage": "<strong>Вы: </strong>стикер",
+          "lastMessageCount": null
+        },
+        {
+          "avatar": null,
+          "selected": false,
+          "chatName": "Илья",
+          "lastMessageTime": "15:00",
+          "lastMessage": "Друзья, у меня для вас особенный выпуск новостей!...",
+          "lastMessageCount": 4
+        },
+        {
+          "avatar": null,
+          "selected": true,
+          "chatName": "Вадим",
+          "lastMessageTime": "Пт",
+          "lastMessage": "<strong>Вы: </strong>Круто!",
+          "lastMessageCount": null
+        }
+    ]
+}

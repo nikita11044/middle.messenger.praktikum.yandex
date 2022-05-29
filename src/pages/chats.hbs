@@ -13,56 +13,9 @@ css:
         <input class="search-field__input" id="chatName" name="chatName" placeholder=" Поиск" type="text" />
       </div>
       <ul class="chats-list">
-          <li class="chat">
-              <div class="avatar-placeholder"></div>
-              <div class="chat-description">
-                  <div class="chat-description__row">
-                      <h3 class="chat-name">Андрей</h3>
-                      <p class="chat__last-message-time">10:49</p>
-                  </div>
-                  <div class="chat-description__row">
-                      <p class="chat__chat-last-message">Изображение</p>
-                      <div class="chat__last-message-count">2</div>
-                  </div>
-              </div>
-          </li>
-          <li class="chat">
-              <div class="avatar-placeholder"></div>
-              <div class="chat-description">
-                  <div class="chat-description__row">
-                      <h3 class="chat-name">Киноклуб</h3>
-                      <p class="chat__last-message-time">12:00</p>
-                  </div>
-                  <div class="chat-description__row">
-                      <p class="chat__chat-last-message"><strong>Вы: </strong>стикер</p>
-                  </div>
-              </div>
-          </li>
-          <li class="chat">
-              <div class="avatar-placeholder"></div>
-              <div class="chat-description">
-                  <div class="chat-description__row">
-                      <h3 class="chat-name">Илья</h3>
-                      <p class="chat__last-message-time">15:12</p>
-                  </div>
-                  <div class="chat-description__row">
-                      <p class="chat__chat-last-message">Друзья, у меня для вас особенный выпуск новостей!...</p>
-                      <div class="chat__last-message-count">4</div>
-                  </div>
-              </div>
-          </li>
-          <li class="chat chat_selected">
-              <div class="avatar-placeholder"></div>
-              <div class="chat-description">
-                  <div class="chat-description__row">
-                      <h3 class="chat-name">Вадим</h3>
-                      <p class="chat__last-message-time">Пт</p>
-                  </div>
-                  <div class="chat-description__row">
-                      <p class="chat__chat-last-message"><strong>Вы: </strong>Круто!</p>
-                  </div>
-              </div>
-          </li>
+          {{#each data.chats}}
+            {{> chat/chat chatData=this}}
+          {{/each}}
       </ul>
     </div>
     <div class="feed">

@@ -1,0 +1,19 @@
+<li class="chat {{classes}}">
+  {{#if chatData.avatar}}
+    
+  {{else}}
+    <div class="avatar-placeholder"></div>
+  {{/if}}
+  <div class="chat-description">
+    <div class="chat-description__row">
+      <h3 class="chat-name">{{chatData.chatName}}</h3>
+      <p class="chat__last-message-time">{{chatData.lastMessageTime}}</p>
+    </div>
+    <div class="chat-description__row">
+      <p class="chat__chat-last-message">{{{chatData.lastMessage}}}</p>
+      {{#if chatData.lastMessageCount}}
+        <div class="chat__last-message-count">{{chatData.lastMessageCount}}</div>
+      {{/if}}
+    </div>
+  </div>
+</li>
