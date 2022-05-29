@@ -11,3 +11,10 @@
     font-weight: 500;
     src: url('../../static/fonts/Inter-Medium.ttf');
 }
+
+@font-face {
+    font-family: 'Inter-SemiBold';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../../static/fonts/Inter-SemiBold.ttf');
+}

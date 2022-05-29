@@ -1,0 +1,110 @@
+---
+css:
+ - global.css
+ - fontFace.css
+ - chats.css
+---
+{{!< baseLayout}}
+
+<main>
+  <div class="chats">
+    <div class="chats__chat-list-wrapper">
+      <div class="search-field">
+        <input class="search-field__input" id="chatName" name="chatName" placeholder=" Поиск" type="text" />
+      </div>
+      <ul class="chats-list">
+          <li class="chat">
+              <div class="avatar-placeholder"></div>
+              <div class="chat-description">
+                  <div class="chat-description__row">
+                      <h3 class="chat-name">Андрей</h3>
+                      <p class="chat__last-message-time">10:49</p>
+                  </div>
+                  <div class="chat-description__row">
+                      <p class="chat__chat-last-message">Изображение</p>
+                      <div class="chat__last-message-count">2</div>
+                  </div>
+              </div>
+          </li>
+          <li class="chat">
+              <div class="avatar-placeholder"></div>
+              <div class="chat-description">
+                  <div class="chat-description__row">
+                      <h3 class="chat-name">Киноклуб</h3>
+                      <p class="chat__last-message-time">12:00</p>
+                  </div>
+                  <div class="chat-description__row">
+                      <p class="chat__chat-last-message"><strong>Вы: </strong>стикер</p>
+                  </div>
+              </div>
+          </li>
+          <li class="chat">
+              <div class="avatar-placeholder"></div>
+              <div class="chat-description">
+                  <div class="chat-description__row">
+                      <h3 class="chat-name">Илья</h3>
+                      <p class="chat__last-message-time">15:12</p>
+                  </div>
+                  <div class="chat-description__row">
+                      <p class="chat__chat-last-message">Друзья, у меня для вас особенный выпуск новостей!...</p>
+                      <div class="chat__last-message-count">4</div>
+                  </div>
+              </div>
+          </li>
+          <li class="chat chat_selected">
+              <div class="avatar-placeholder"></div>
+              <div class="chat-description">
+                  <div class="chat-description__row">
+                      <h3 class="chat-name">Вадим</h3>
+                      <p class="chat__last-message-time">Пт</p>
+                  </div>
+                  <div class="chat-description__row">
+                      <p class="chat__chat-last-message"><strong>Вы: </strong>Круто!</p>
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+    <div class="feed">
+        <div class="feed__feed-panel feed__feed-panel_top">
+            <div class="chat-info">
+                <div class="avatar-placeholder"></div>
+                <h3 class="chat-name">Вадим</h3>
+            </div>
+            <button class="icon-button icon-button_menu"></button>
+        </div>
+        <div class="messages-wrapper">
+            <section class="date-message-group">
+                <div class="date-message-group__date">12 мая</div>
+                <ul class="message-list">
+                    <li class="message message_to">
+                        <p class="message__text">
+                            Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА 
+                            в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на 
+                            Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, 
+                            все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой
+                            забрали только кассеты с пленкой. &#13; Хассельблад в итоге адаптировал SWC для космоса, 
+                            но что-то пошло не так и на ракету они так никогда и не попали. Всего их было 
+                            произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.
+                        </p>
+                        <span class="message__time">11:56</span>
+                    </li>
+                    <li class="message message_to message_with_image">
+                        <img src="../../static/images/image-in-message.png" alt="" class="chats__message-image">
+                        <span class="message__time">11:56</span>
+                    </li>
+                    <li class="message message_from">
+                        <p class="message__text">Круто!</p>
+                        <span class="message__time">11:56</span>
+                    </li>
+                </ul>  
+            </section>
+        </div>
+        <div class="feed__feed-panel feed__feed-panel_bottom">
+            <button class="icon-button icon-button_attachment"></button>
+            <span class="message-input" role="textbox" contenteditable  placeholder="Сообщение"></span>
+            <button class="icon-button icon-button_arrow-right"></button>
+        </div>
+    </div>
+  </div>
+</main>
