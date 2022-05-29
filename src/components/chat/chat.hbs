@@ -1,4 +1,4 @@
-<li class="chat {{classes}}">
+<li {{#if chatData.selected}} class="chat chat_selected" {{else}} class="chat" {{/if}}>
   {{#if chatData.avatar}}
     
   {{else}}

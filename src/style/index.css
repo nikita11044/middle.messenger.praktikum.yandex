@@ -4,5 +4,6 @@
 @import url('../components/link/link.css');
 @import url('../components/access-form-field/access-form-field.css');
 @import url('../components/chat/chat.css');
+@import url('../components/message/message.css');
 @import url('./pages/access.css');
 @import url('./pages/chats.css');
