@@ -1,5 +1,3 @@
-$blue: #3369F3;
-
 * {
     margin: 0;
     padding: 0;
@@ -26,21 +24,4 @@ ul, ol {
 textarea {
     outline: none;
     resize: none;
-}
-
-.button-contained {
-    width: 280px;
-    height: 37px;
-    background-color: $blue;
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.link {
-    color: $blue;
-    font-size: 11px;
-    text-decoration: none;
 }

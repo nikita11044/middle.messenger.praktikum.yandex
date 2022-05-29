@@ -195,15 +195,15 @@ $messageFrom: #E4EDFD;
     cursor: pointer;
 
     &.icon-button_menu {
-        background-image: url(../../static/images/dots-button.svg);
+        background-image: url(../../../static/images/dots-button.svg);
     }
 
     &.icon-button_attachment {
-        background-image: url(../../static/images/attach-icon.svg);
+        background-image: url(../../../static/images/attach-icon.svg);
     }
 
     &.icon-button_arrow-right {
-        background-image: url(../../static/images/arrow-right.svg);
+        background-image: url(../../../static/images/arrow-right.svg);
     }
 }
 
@@ -261,7 +261,7 @@ $messageFrom: #E4EDFD;
         background-color: $messageFrom;
 
         .message__time::before {
-            content: url(../../static/images/ticks.svg);
+            content: url(../../../static/images/ticks.svg);
             width: 10px;
             height: 5px;
 

@@ -1,5 +1,5 @@
 module.exports = {
   layouts: "src/layout",
-  partials: "src/partials",
+  partials: "src/components",
   data: "src/data",
 };

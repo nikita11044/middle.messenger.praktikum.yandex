@@ -1,15 +1,22 @@
----
-title: Регистрация
-css:
-  - global.css
-  - fontFace.css
-  - access.css
----
 {{!< baseLayout}}
 
 <main>
   <div class="access sign-up">
-    <h3 class="access__header">{{title}}</h3>
-    {{> modules/signUpForm}}
+    <h3 class="access__header">Регистрация</h3>
+    <form class="access__form">
+    <div class="access__fieldset">
+        {{> access-form-field/access-form-field fieldName="Почта" fieldId="email" fieldType="email"}}
+        {{> access-form-field/access-form-field fieldName="Логин" fieldId="login" fieldType="text"}}
+        {{> access-form-field/access-form-field fieldName="Имя" fieldId="name" fieldType="text"}}
+        {{> access-form-field/access-form-field fieldName="Фамилия" fieldId="surname" fieldType="text"}}
+        {{> access-form-field/access-form-field fieldName="Телефон" fieldId="phone" fieldType="phone"}}
+        {{> access-form-field/access-form-field fieldName="Пароль" fieldId="password" fieldType="password"}}
+        {{> access-form-field/access-form-field fieldName="Пароль (ещё раз)" fieldId="password-confirmation" fieldType="password"}}
+    </div>
+    <div class="access__buttons-block">
+        {{> button/button classes="access__button" title="Зарегистрироваться" type="submit"}}
+        {{> link/link classes="access__link" href="./chats.hbs" text="Войти"}}
+    </div>
+</form>
   </div>
 </main>
