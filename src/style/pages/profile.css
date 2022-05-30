@@ -1,5 +1,4 @@
 $lightBackground: #FBFBFB;
-$avatarPlaceholder: #efefef;
 $blue: #3369F3;
 $fadeGray: #EAEAEA;
 
@@ -29,15 +28,40 @@ $fadeGray: #EAEAEA;
     margin: auto;
 }
 
-.profile-data__avatar {
+.avatar {
     margin: 0 auto;
     width: 130px;
+    position: relative;
 }
 
-.profile-data__avatar-placeholder {
+.avatar-form__submit {
+    height: 130px;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    background-color: black;
+    opacity: 0;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    text-align: center;
+
+    &:hover {
+       opacity: 0.5;
+       cursor: pointer;
+    }
+}
+
+.avatar-form__input {
+    visibility: hidden;
+}
+
+.avatar-image {
     height: 130px;
     border-radius: 50%;
-    background-color: $avatarPlaceholder;
+    width: 100%;
+    z-index: -1;
 }
 
 .profile-data__user-name {

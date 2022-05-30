@@ -8,10 +8,12 @@
             </a>
         </div>
         <div class="profile-data">
-            <div class="profile-data__avatar">
-                <div class="profile-data__avatar-placeholder"></div>
-                <h2 class="profile-data__user-name">Иван</h2>
-            </div>
+            <form class="avatar" name="change_avatar">
+                <img class="avatar-image" src="../../static/images/avatar-placeholder-image.svg" alt="avatar">
+                <button class="avatar-form__submit" form="change_avatar">Поменять аватар</button>
+                <input class="avatar-form__input" type="file" name="avatar"/>
+            </form>
+            <h2 class="profile-data__user-name">Иван</h2>
             <div class="profile-data__user-data">
                 {{#each data.userProfileDataElements}}
                     {{> user-data-element/user-data-element userDataElement=this}}
