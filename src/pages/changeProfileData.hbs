@@ -1,0 +1,24 @@
+{{!< baseLayout}}
+
+<main>
+    <div class="profile">
+        <div class="return-button-wrapper">
+            <a href="./chats.hbs" class="return-button">
+                <img src="../../static/images/arrow-right.svg" alt="back">
+            </a>
+        </div>
+        <div class="profile-data">
+            <div class="profile-data__avatar">
+                <div class="profile-data__avatar-placeholder"></div>
+            </div>
+            <form class="profile-data__user-data" form="user_data">
+                {{#each data.userDataElements}}
+                    {{> user-data-element/user-data-element userDataElement=this isFormField="true"}}
+                {{/each}}
+                <div class="profile-data__control-panel profile-data__control-panel_inside-form">
+                    {{> button/button title="Сохранить" name="user_data" type="submit"}}
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

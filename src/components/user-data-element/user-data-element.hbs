@@ -1,0 +1,15 @@
+<div class="user-data-element">
+    {{#if isFormField}}
+        <label
+            for="{{userDataElement.formValue}}" 
+            class="user-data-element__name">{{userDataElement.label}}</label>
+        <input 
+            class="user-data-element__input" 
+            name="{{userDataElement.formValue}}"
+            type="{{userDataElement.type}}"
+            value="{{userDataElement.elementValue}}"/>
+    {{else}}
+        <div class="user-data-element__name">{{userDataElement.label}}</div>
+        <div class="user-data-element__value">{{userDataElement.elementValue}}</div>
+    {{/if}}
+</div>

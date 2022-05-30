@@ -3,18 +3,14 @@
 <main>
   <div class="access sign-up">
     <h3 class="access__header">Регистрация</h3>
-    <form class="access__form">
+    <form class="access__form" name="sign_up">
     <div class="access__fieldset">
-        {{> access-form-field/access-form-field fieldName="Почта" fieldId="email" fieldType="email"}}
-        {{> access-form-field/access-form-field fieldName="Логин" fieldId="login" fieldType="text"}}
-        {{> access-form-field/access-form-field fieldName="Имя" fieldId="name" fieldType="text"}}
-        {{> access-form-field/access-form-field fieldName="Фамилия" fieldId="surname" fieldType="text"}}
-        {{> access-form-field/access-form-field fieldName="Телефон" fieldId="phone" fieldType="phone"}}
-        {{> access-form-field/access-form-field fieldName="Пароль" fieldId="password" fieldType="password"}}
-        {{> access-form-field/access-form-field fieldName="Пароль (ещё раз)" fieldId="password-confirmation" fieldType="password"}}
+        {{#each data.signUpFormFields}}
+          {{> access-form-field/access-form-field formField=this}}
+        {{/each}}
     </div>
     <div class="access__buttons-block">
-        {{> button/button classes="access__button" title="Зарегистрироваться" type="submit"}}
+        {{> button/button classes="access__button" title="Зарегистрироваться" form="sign_up" type="submit"}}
         {{> link/link classes="access__link" href="./chats.hbs" text="Войти"}}
     </div>
 </form>

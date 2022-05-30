@@ -1,0 +1,33 @@
+{{!< baseLayout}}
+
+<main>
+    <div class="profile">
+        <div class="return-button-wrapper">
+            <a href="./chats.hbs" class="return-button">
+                <img src="../../static/images/arrow-right.svg" alt="back">
+            </a>
+        </div>
+        <div class="profile-data">
+            <div class="profile-data__avatar">
+                <div class="profile-data__avatar-placeholder"></div>
+                <h2 class="profile-data__user-name">Иван</h2>
+            </div>
+            <div class="profile-data__user-data">
+                {{!-- {{> user-data-element/user-data-element name="Почта" value="pochta@yandex.ru"}}
+                {{> user-data-element/user-data-element name="Логин" value="noname"}}
+                {{> user-data-element/user-data-element name="Имя" value="Ноунейм"}}
+                {{> user-data-element/user-data-element name="Фамилия" value="Ноунеймов"}}
+                {{> user-data-element/user-data-element name="Имя в чате" value="Ноунейм"}}
+                {{> user-data-element/user-data-element name="Телефон" value="+7 (909) 967 30 30"}} --}}
+                {{#each data.userDataElements}}
+                    {{> user-data-element/user-data-element userDataElement=this}}
+                {{/each}}
+            </div>
+            <div class="profile-data__control-panel">
+                <a href="./changeProfileData.hbs" class="control-panel__link">Изменить данные</a>
+                <a href="#" class="control-panel__link">Изменить пароль</a>
+                <a href="#" class="control-panel__link control-panel__link_red-text">Выйти</a>
+            </div>
+        </div>
+    </div>
+</main>

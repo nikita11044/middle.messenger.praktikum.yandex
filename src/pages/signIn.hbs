@@ -3,13 +3,14 @@
 <main>
   <div class="access sign-in">
     <h3 class="access__header">Вход</h3>
-    <form class="access__form">
+    <form class="access__form" name="sign_in">
     <div class="access__fieldset">
-        {{> access-form-field/access-form-field fieldName="Логин" fieldId="login" fieldType="text"}}
-        {{> access-form-field/access-form-field fieldName="Пароль" fieldId="password" fieldType="password"}}
+        {{#each data.signInFormFields}}
+          {{> access-form-field/access-form-field formField=this}}
+        {{/each}}
     </div>
     <div class="access__buttons-block">
-        {{> button/button classes="access__button" title="Войти" type="submit"}}
+        {{> button/button classes="access__button" title="Войти" form="sign_in" type="submit"}}
         {{> link/link classes="access__link" href="./signUp.hbs" text="Нет аккаунта?"}}
     </div>
 </form>
