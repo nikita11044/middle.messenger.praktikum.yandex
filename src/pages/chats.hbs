@@ -14,7 +14,7 @@
       </ul>
     </div>
     <div class="feed">
-        <div class="feed__feed-panel feed__feed-panel_top">
+        <div class="feed__feed-panel">
             <div class="chat-info">
                 <div class="avatar-placeholder"></div>
                 <h3 class="chat-name">Вадим</h3>
@@ -31,11 +31,12 @@
                 </ul>  
             </section>
         </div>
-        <div class="feed__feed-panel feed__feed-panel_bottom">
+        <form class="message-form" name="message-form">
+            <input class="message-form__attachment-input" type="file" name="image" form="message-form"/>
             <button class="icon-button icon-button_attachment"></button>
-            <span class="message-input" role="textbox" contenteditable  placeholder="Сообщение"></span>
-            <button class="icon-button icon-button_arrow-right"></button>
-        </div>
+            <input class="message-form__message-input" oninput="this.parentNode.dataset.value = this.value" name="message" form="message-form" placeholder="Сообщение"/>
+            <button class="icon-button icon-button_arrow-right" type="submit"></button>
+        </form>
     </div>
   </div>
 </main>

@@ -90,29 +90,14 @@ $messageFrom: #E4EDFD;
     align-items: center;
     justify-content: space-between;
     position: relative;
+    margin-bottom: 11px;
 
-    &.feed__feed-panel_top {
-        margin-bottom: 11px;
-
-        &::after {
-            content: " ";
-            border-bottom: 1px solid $fadeGray;
-            position: absolute;
-            width: 100%;
-            bottom: -11px;
-        }
-    }
-
-    &.feed__feed-panel_bottom {
-        margin-top: 11px;
-
-        &::before {
-            content: " ";
-            border-bottom: 1px solid $fadeGray;
-            position: absolute;
-            width: 100%;
-            top: -11px;
-        }
+    &::after {
+        content: " ";
+        border-bottom: 1px solid $fadeGray;
+        position: absolute;
+        width: 100%;
+        bottom: -11px;
     }
 }
 
@@ -174,22 +159,38 @@ $messageFrom: #E4EDFD;
     }
 }
 
-.message-input {
+.message-form {
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    margin-top: 11px;
+
+    &::before {
+        content: " ";
+        border-bottom: 1px solid $fadeGray;
+        position: absolute;
+        width: 100%;
+        top: -11px;
+    }
+}
+
+.message-form__attachment-input {
+    display: none;
+}
+
+.message-form__message-input {
     width: 100%;
 
     margin: 0 10px;
     padding: 12px 20px;
 
-    background-color:$fadeGray;
+    background-color: $fadeGray;
     border-radius: 30px;
 
     font-size: 14px;
     line-height: 12px;
 
     border: none;
-
-    &[contenteditable]:empty::before {
-        content: "Сообщение";
-        color: $gray;
-    }
 }
