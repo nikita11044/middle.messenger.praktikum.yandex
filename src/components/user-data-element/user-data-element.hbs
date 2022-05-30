@@ -7,7 +7,8 @@
             class="user-data-element__input" 
             name="{{userDataElement.formValue}}"
             type="{{userDataElement.type}}"
-            value="{{userDataElement.elementValue}}"/>
+            {{#if userDataElement.placeholder}} placeholder="{{userDataElement.placeholder}}" {{/if}}
+            {{#if userDataElement.elementValue}} value="{{userDataElement.elementValue}}" {{/if}}/>
     {{else}}
         <div class="user-data-element__name">{{userDataElement.label}}</div>
         <div class="user-data-element__value">{{userDataElement.elementValue}}</div>

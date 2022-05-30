@@ -50,7 +50,7 @@
       "messageTime": "11:56"
     }
   ],
-  "userDataElements": [
+  "userProfileDataElements": [
     {
       "elementValue": "noname",
       "formValue": "login",
@@ -86,6 +86,24 @@
       "formValue": "phone",
       "label": "Телефон",
       "type": "phone"
+    }
+  ],
+  "userPasswordDataElements": [
+    {
+      "elementValue": "supersecretpassword",
+      "formValue": "oldPassword",
+      "label": "Старый пароль",
+      "type": "password"
+    },
+    {
+      "formValue": "newPassword",
+      "label": "Новый пароль",
+      "type": "password"
+    },
+    {
+      "formValue": "confirmPassword",
+      "label": "Повторите новый пароль",
+      "type": "password"
     }
   ],
   "signInFormFields": [
