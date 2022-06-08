@@ -1,0 +1,24 @@
+$fadeGray: #EAEAEA;
+
+.user-data-element {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 20px;
+
+    &:first-of-type {
+        margin-top: 60px;
+    }
+
+    &:not(:last-child)::after {
+        content: " ";
+        border-bottom: 1px solid $fadeGray;
+        position: absolute;
+        bottom: -11px;
+        width: 100%;
+    }
+}
+
+.user-data-element__input {
+    text-align: end;
+}

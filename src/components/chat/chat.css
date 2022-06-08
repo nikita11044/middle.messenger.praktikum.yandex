@@ -1,0 +1,83 @@
+$blue: #3369F3;
+$fadeBlue: #E4EDFD;
+$dark: #1E1E1E;
+$gray: #999999;
+$fadeGray: #EAEAEA;
+$lightBackground: #FBFBFB;
+$messageTo: #F8F8F8;
+$messageFrom: #E4EDFD;
+
+.chat {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    height: 67px;
+
+    margin: 0 10px;
+    padding: 10px;
+
+    border-bottom: 1px solid $fadeGray;
+
+    &:first-of-type {
+        border-top: 1px solid $fadeGray;
+    }
+
+    &:last-of-type {
+        margin-bottom: calc(33% + 12px)
+    }
+
+    &.chat_selected {
+        background-color: $fadeBlue;
+        margin: 0;
+        padding: 10px 20px;
+    }
+}
+
+.chat-description {
+    width: 80%;
+}
+
+.chat-description__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat__chat-last-message {
+    width: 193px;
+    height: 30px;
+
+    margin-top: 4px;
+
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.chat__message-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat__last-message-time {
+    font-size: 9px;
+    line-height: 13px;
+}
+
+.chat__last-message-count {
+    width: 20px;
+    height: 20px;
+
+    padding: 4px;
+    
+    background-color: $blue;
+    color: white;
+    
+    border-radius: 50%;
+    
+    font-size: 11px;
+    line-height: 12px;
+    text-align: center;
+}

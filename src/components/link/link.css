@@ -1,0 +1,7 @@
+$blue: #3369F3;
+
+.link {
+    color: $blue;
+    font-size: 11px;
+    text-decoration: none;
+}

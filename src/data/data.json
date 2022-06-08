@@ -1,0 +1,159 @@
+{
+  "chats": [
+    {
+      "avatar": null,
+      "selected": false,
+      "chatName": "Андрей",
+      "lastMessageTime": "10:49",
+      "lastMessage": "Изображение",
+      "lastMessageCount": 2
+    },
+    {
+      "avatar": null,
+      "selected": false,
+      "chatName": "Киноклуб",
+      "lastMessageTime": "12:00",
+      "lastMessage": "<strong>Вы: </strong>стикер",
+      "lastMessageCount": null
+    },
+    {
+      "avatar": null,
+      "selected": false,
+      "chatName": "Илья",
+      "lastMessageTime": "15:00",
+      "lastMessage": "Друзья, у меня для вас особенный выпуск новостей!...",
+      "lastMessageCount": 4
+    },
+    {
+      "avatar": null,
+      "selected": true,
+      "chatName": "Вадим",
+      "lastMessageTime": "Пт",
+      "lastMessage": "<strong>Вы: </strong>Круто!",
+      "lastMessageCount": null
+    }
+  ],
+  "messages": [
+    {
+      "destination": "to",
+      "text": "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. &#13; Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
+      "messageTime": "11:56"
+    },
+    {
+      "destination": "to",
+      "image": "../../static/images/image-in-message.png",
+      "messageTime": "11:56"
+    },
+    {
+      "destination": "from",
+      "text": "Круто!",
+      "messageTime": "11:56"
+    }
+  ],
+  "userProfileDataElements": [
+    {
+      "elementValue": "noname",
+      "formValue": "login",
+      "label": "Логин",
+      "type": "text"
+    },
+    {
+      "elementValue": "Ноунейм",
+      "formValue": "first_name",
+      "label": "Имя",
+      "type": "text"
+    },
+    {
+      "elementValue": "Ноунеймов",
+      "formValue": "second_name",
+      "label": "Фамилия",
+      "type": "text"
+    },
+    {
+      "elementValue": "Ноунейм",
+      "formValue": "display_name",
+      "label": "Имя в чате",
+      "type": "text"
+    },
+    {
+      "elementValue": "pochta@yandex.ru",
+      "formValue": "email",
+      "label": "Почта",
+      "type": "email"
+    },
+    {
+      "elementValue": "+7 (909) 967 30 30",
+      "formValue": "phone",
+      "label": "Телефон",
+      "type": "phone"
+    }
+  ],
+  "userPasswordDataElements": [
+    {
+      "elementValue": "supersecretpassword",
+      "formValue": "oldPassword",
+      "label": "Старый пароль",
+      "type": "password"
+    },
+    {
+      "formValue": "newPassword",
+      "label": "Новый пароль",
+      "type": "password"
+    },
+    {
+      "formValue": "confirmPassword",
+      "label": "Повторите новый пароль",
+      "type": "password"
+    }
+  ],
+  "signInFormFields": [
+    {
+      "label": "Логин",
+      "type": "text"
+    },
+    {
+      "label": "Пароль",
+      "type": "password"
+    }
+  ],
+  "signUpFormFields": [
+    {
+      "label": "Почта",
+      "type": "email"
+    },
+    {
+      "label": "Логин",
+      "type": "text"
+    },
+    {
+      "label": "Имя",
+      "type": "text"
+    },
+    {
+      "label": "Фамилия",
+      "type": "text"
+    },
+    {
+      "label": "Телефон",
+      "type": "phone"
+    },
+    {
+      "label": "Пароль",
+      "type": "password"
+    },
+    {
+      "label": "Пароль (ещё раз)",
+      "type": "password"
+    }
+  ],
+  "errors": {
+    "serverError": {
+      "code": 500,
+      "descr": "Скоро починим, не беспокойтесь"
+    },
+    "notFound": {
+      "code": 404,
+      "descr": "Извините, но такой страницы мы не знаем"
+    }
+  }
+}

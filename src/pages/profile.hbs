@@ -1,0 +1,29 @@
+{{!< baseLayout}}
+
+<main>
+    <div class="profile">
+        <div class="return-button-wrapper">
+            <a href="./chats.hbs" class="return-button">
+                <img src="../../static/images/arrow-right.svg" alt="back">
+            </a>
+        </div>
+        <div class="profile-data">
+            <form class="avatar" name="change_avatar">
+                <img class="avatar-image" src="../../static/images/avatar-placeholder-image.svg" alt="avatar">
+                <button class="avatar-form__submit" form="change_avatar">Поменять аватар</button>
+                <input class="avatar-form__input" type="file" name="avatar"/>
+            </form>
+            <h2 class="profile-data__user-name">Иван</h2>
+            <div class="profile-data__user-data">
+                {{#each data.userProfileDataElements}}
+                    {{> user-data-element/user-data-element userDataElement=this}}
+                {{/each}}
+            </div>
+            <div class="profile-data__control-panel">
+                <a href="./changeProfileData.hbs" class="control-panel__link">Изменить данные</a>
+                <a href="./changePassword.hbs" class="control-panel__link">Изменить пароль</a>
+                <a href="./index.hbs" class="control-panel__link control-panel__link_red-text">Выйти</a>
+            </div>
+        </div>
+    </div>
+</main>
