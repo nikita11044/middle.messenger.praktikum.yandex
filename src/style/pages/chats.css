@@ -23,17 +23,13 @@ $messageFrom: #E4EDFD;
 }
 
 .profile-button {
-    width: 54px;
-    height: 12px;
+    cursor: pointer;
     background: none;
     border: none;
     position: absolute;
-    right: 29px;
     top: 22px;
-    cursor: pointer;
-}
-
-.profile-button__link {
+    right: 24px;
+    font-size: 12px;
     color: $gray;
 }
 
