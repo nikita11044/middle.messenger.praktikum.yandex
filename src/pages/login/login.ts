@@ -12,27 +12,28 @@ export class LoginPage extends Block {
         login: '',
         password: '',
       },
-      // validateLogin: () => {
-      //   const loginData = {
-      //     login: (this.refs.login.children[1] as HTMLInputElement).value,
-      //     password: (this.refs.password.children[1] as HTMLInputElement).value,
-      //   };
-      //
-      //   const nextState = {
-      //     errors: {
-      //       login: '',
-      //       password: '',
-      //     },
-      //     values: { ...loginData },
-      //   };
-      //
-      //   if (!validation('login', loginData.login)) {
-      //     nextState.errors.login = 'Login is invalid';
-      //   }
-      //
-      //   this.setState(nextState);
-      // },
-      // validatePassword: () => {},
+      // Здесь начинаются проблемы с фокусом
+      validateLogin: () => {
+        const loginData = {
+          login: (this.refs.login.children[1] as HTMLInputElement).value,
+          password: (this.refs.password.children[1] as HTMLInputElement).value,
+        };
+
+        const nextState = {
+          errors: {
+            login: '',
+            password: '',
+          },
+          values: { ...loginData },
+        };
+
+        if (!validation('login', loginData.login)) {
+          nextState.errors.login = 'Login is invalid';
+        }
+
+        this.setState(nextState);
+      },
+      validatePassword: () => {},
       onLogin: () => {
         const loginData = {
           login: (this.refs.login.children[1] as HTMLInputElement).value,
