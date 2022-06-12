@@ -57,14 +57,14 @@ $messageFrom: #E4EDFD;
 
             top: calc(100% - 24px);
             left: calc(100% - 37px);
-            
+
             background-color: $gray;
-            
+
             padding: 2px 3px;
-            
+
             text-align: center;
             color: white;
-            
+
             border-radius: 7px;
         }
     }
@@ -80,10 +80,10 @@ $messageFrom: #E4EDFD;
     display: block;
 
     width: 23px;
-    height: 9px; 
+    height: 9px;
 
     margin-left: auto;
-    
+
     font-size: 9px;
     line-height: 9px;
     color: $gray;

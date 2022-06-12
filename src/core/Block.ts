@@ -7,7 +7,7 @@ type Meta<P = any> = {
 };
 
 export default class Block<P = any> {
-  static EVENTS = {
+  static EVENTS: Record<string, string> = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
@@ -16,7 +16,7 @@ export default class Block<P = any> {
 
   public id = nanoid(6);
 
-  private readonly meta: Meta;
+  private readonly _meta: Meta;
 
   protected _element: Nullable<HTMLElement> = null;
 
@@ -24,38 +24,50 @@ export default class Block<P = any> {
 
   protected children: { [id: string]: Block } = {};
 
-  private eventBus: () => EventBus;
+  private _eventBus: () => EventBus;
+
+  protected state: any = {};
+
+  protected refs: { [key: string]: HTMLElement } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus();
 
-    this.meta = {
+    this._meta = {
       props,
     };
 
-    this.props = this.makePropsProxy(props || {} as P);
+    this.getStateFromProps(props);
 
-    this.eventBus = () => eventBus;
+    this.props = this._makePropsProxy(props || {} as P);
 
-    this.registerEvents(eventBus);
+    this.state = this._makePropsProxy(this.state);
+
+    this._eventBus = () => eventBus;
+
+    this._registerEvents(eventBus);
 
     eventBus.emit(Block.EVENTS.INIT, this.props);
   }
 
-  private registerEvents(eventBus: EventBus) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private createResources() {
-    this._element = Block.createDocumentElement('div');
+  private _createResources() {
+    this._element = Block._createDocumentElement('div');
+  }
+
+  protected getStateFromProps(props?: P): void {
+    this.state = {};
   }
 
   init() {
-    this.createResources();
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
+    this._createResources();
+    this._eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
   private _componentDidMount(props: P) {
@@ -69,6 +81,7 @@ export default class Block<P = any> {
     if (!response) {
       return;
     }
+    // debugger;
     this._render();
   }
 
@@ -84,20 +97,27 @@ export default class Block<P = any> {
     Object.assign(this.props, nextProps);
   };
 
+  setState = (nextState: any) => {
+    if (!nextState) {
+      return;
+    }
+    Object.assign(this.state, nextState);
+  };
+
   get element() {
     return this._element;
   }
 
-  _render() {
-    const fragment = this.compile();
+  private _render() {
+    const fragment = this._compile();
 
-    this.removeEvents();
+    this._removeEvents();
     const newElement = fragment.firstElementChild!;
 
     this._element!.replaceWith(newElement);
 
     this._element = newElement as HTMLElement;
-    this.addEvents();
+    this._addEvents();
   }
 
   protected render(): string {
@@ -108,7 +128,7 @@ export default class Block<P = any> {
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
         if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
-          this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+          this._eventBus().emit(Block.EVENTS.FLOW_CDM);
         }
       }, 100);
     }
@@ -116,7 +136,7 @@ export default class Block<P = any> {
     return this.element!;
   }
 
-  private makePropsProxy(props: any): any {
+  private _makePropsProxy(props: any): any {
     const self = this;
 
     return new Proxy(props as unknown as object, {
@@ -126,7 +146,7 @@ export default class Block<P = any> {
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
         target[prop] = value;
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+        self._eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {
@@ -135,39 +155,63 @@ export default class Block<P = any> {
     }) as unknown as P;
   }
 
-  private static createDocumentElement(tagName: string) {
+  private static _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 
-  private removeEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+  private _removeEvents() {
+    const events: { root?: Record<string, () => void>, children?: Record<string, Record<string, () => void>> } = (this.props as any).events;
 
-    if (!events || !this._element) {
+    if (!events || !events.root || !this._element) {
       return;
     }
 
-    Object.entries(events).forEach(([event, listener]) => {
-      this._element!.removeEventListener(event, listener);
-    });
+    if (events.root) {
+      Object.entries(events.root).forEach(([event, listener]) => {
+        this._element!.removeEventListener(event, listener);
+      });
+    }
+
+    if (events.children) {
+      Object.entries(events.children).forEach(([dataValue, eventRecord]) => {
+        const child = this._element!.querySelector(`[data-append-event=${dataValue}]`);
+        Object.entries(eventRecord).forEach(([event, listener]) => {
+          child!.removeEventListener(event, listener);
+        });
+      });
+    }
   }
 
-  private addEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+  private _addEvents() {
+    const events: { root?: Record<string, () => void>, children?: Record<string, Record<string, () => void>> } = (this.props as any).events;
 
     if (!events) {
       return;
     }
 
-    Object.entries(events).forEach(([event, listener]) => {
-      this._element!.addEventListener(event, listener);
-    });
+    if (events.root) {
+      Object.entries(events.root).forEach(([event, listener]) => {
+        this._element!.addEventListener(event, listener);
+      });
+    }
+
+    if (events.children) {
+      Object.entries(events.children).forEach(([dataValue, eventRecord]) => {
+        const child = this._element!.querySelector(`[data-append-event=${dataValue}]`);
+        Object.entries(eventRecord).forEach(([event, listener]) => {
+          child!.addEventListener(event, listener);
+        });
+      });
+    }
   }
 
-  private compile(): DocumentFragment {
+  private _compile(): DocumentFragment {
     const fragment = document.createElement('template');
 
     const template = Handlebars.compile(this.render());
-    fragment.innerHTML = template({ ...this.props, children: this.children });
+    fragment.innerHTML = template({
+      ...this.state, ...this.props, children: this.children, refs: this.refs,
+    });
 
     Object.entries(this.children).forEach(([id, component]) => {
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);
@@ -175,8 +219,6 @@ export default class Block<P = any> {
       if (!stub) {
         return;
       }
-
-      const childNodes = stub.childNodes.length ? stub.childNodes : [];
 
       const content = component.getContent();
       stub.replaceWith(content);

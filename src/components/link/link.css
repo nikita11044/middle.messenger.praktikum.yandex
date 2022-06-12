@@ -4,4 +4,5 @@ $blue: #3369F3;
     color: $blue;
     font-size: 11px;
     text-decoration: none;
+    cursor: pointer;
 }

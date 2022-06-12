@@ -1,27 +1,35 @@
 import Handlebars, { HelperOptions } from 'handlebars';
 import Block from './Block';
 
-type PropsSpecifiedBlock<P = any> = {
+interface PropsSpecifiedBlock<P = any> {
   new(props: P): Block;
-};
+}
 
-export default function inscribeComponent<P extends any>(Component: PropsSpecifiedBlock<P>) {
-  Handlebars.registerHelper(Component.name, function (this: P, { hash: { ...hash }, data, fn }: HelperOptions) {
+export default function registerComponent<P extends any>(Component: PropsSpecifiedBlock<P>, alias: string) {
+  Handlebars.registerHelper(alias, function (this: P, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
     if (!data.root.children) {
       data.root.children = {};
     }
 
-    const { children } = data.root;
+    if (!data.root.refs) {
+      data.root.refs = {};
+    }
+
+    const { children, refs } = data.root;
 
     (Object.keys(hash) as any).forEach((key: keyof P) => {
       if (this[key]) {
-        hash[key] = hash[key].replace(new RegExp(`{{${String(key)}}}`, 'i'), this[key]);
+        hash[key] = hash[key].replace(new RegExp(`{{${key}}}`, 'i'), this[key]);
       }
     });
 
     const component = new Component(hash);
 
     children[component.id] = component;
+
+    if (ref) {
+      refs[ref] = component.getContent();
+    }
 
     const content = fn ? fn(this) : '';
 

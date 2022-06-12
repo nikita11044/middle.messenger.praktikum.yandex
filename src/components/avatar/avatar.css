@@ -1,0 +1,10 @@
+.avatar-image {
+    height: 130px;
+    border-radius: 50%;
+    width: 100%;
+    z-index: -1;
+}
+
+.avatar-image_placeholder {
+    background-image: url("../../../static/images/avatar-placeholder-image.svg");
+}

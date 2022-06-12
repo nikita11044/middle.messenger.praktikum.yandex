@@ -9,6 +9,8 @@
         "no-param-reassign": "off",
         "no-underscore-dangle": "off",
         "prefer-destructuring": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "prefer-default-export": "off",
+        "no-restricted-exports": "off"
     }
 }

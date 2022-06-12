@@ -16,10 +16,13 @@ $fadeGray: #EAEAEA;
 
 .return-button {
     display: inline-block;
+    background-image: url("../../../static/images/arrow-right.svg");
     transform: rotate(180deg);
     position: absolute;
     top: 50%;
     left: 16px;
+    width: 28px;
+    height: 28px;
 }
 
 .profile-data {
@@ -55,13 +58,6 @@ $fadeGray: #EAEAEA;
 
 .avatar-form__input {
     visibility: hidden;
-}
-
-.avatar-image {
-    height: 130px;
-    border-radius: 50%;
-    width: 100%;
-    z-index: -1;
 }
 
 .profile-data__user-name {

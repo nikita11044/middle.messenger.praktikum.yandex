@@ -2,8 +2,8 @@
   "name": "telechat",
   "version": "0.0.1",
   "scripts": {
-    "watch": "parcel src/pages/index.hbs --no-cache && parcel watch ./src/*",
-    "build": "parcel build src/pages/index.hbs --no-cache --public-url ./",
+    "watch": "parcel src/index.html --no-cache && parcel watch ./src/*",
+    "build": "parcel build src/index.html --no-cache --public-url ./",
     "start": "npm run build && node ./server.js"
   },
   "devDependencies": {
