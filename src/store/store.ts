@@ -23,9 +23,10 @@ type UserProfileDataElement = {
 };
 
 type AppState = {
-  chats: ChatData[],
-  messages: MessageData[],
-  userProfileDataElements: UserProfileDataElement[]
+  chats: ChatData[];
+  messages: MessageData[];
+  userProfileDataElements: UserProfileDataElement[];
+  password: string;
 };
 
 export class Store {
@@ -116,6 +117,7 @@ export class Store {
         inputType: 'phone',
       },
     ],
+    password: 'Supersecretpassword777',
   };
 
   static getAppState(): AppState {

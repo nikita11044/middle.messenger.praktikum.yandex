@@ -5,6 +5,7 @@ import { errorInField } from '../../utils';
 interface AccessFormFieldProps {
   value?: string;
   formValue: string;
+  customValidationOption?: string;
   label: string;
   inputType: InputTypeAttribute;
   error?: string;
@@ -12,9 +13,10 @@ interface AccessFormFieldProps {
 
 export class AccessFormField extends Block {
   constructor({
-    formValue, value = '', label, inputType,
+    customValidationOption, formValue, value = '', label, inputType,
   }: AccessFormFieldProps) {
     super({
+      customValidationOption,
       formValue,
       value,
       label,
@@ -25,12 +27,12 @@ export class AccessFormField extends Block {
             fieldInput: {
               focus: () => {
                 this.getContent().classList.remove('access__field_is-empty');
-                Object.values(this.children)[0].setProps({ error: '' });
+                this.refs.errorText.setProps({ error: '' });
               },
               blur: (e: FocusEvent) => {
                 const targetInput = e.target as HTMLInputElement;
                 if (targetInput.value !== '') {
-                  Object.values(this.children)[0].setProps({ error: errorInField(formValue, targetInput.value) });
+                  this.refs.errorText.setProps({ error: errorInField(customValidationOption || formValue, targetInput.value) });
                 }
               },
             },
@@ -45,7 +47,7 @@ export class AccessFormField extends Block {
         <label class="access__label" for="{{formValue}}">{{label}}</label>
         <input class="access__input" data-append-event="fieldInput" 
         name="{{formValue}}" value="{{value}}" type="{{inputType}}" />
-        {{{ErrorText}}}
+        {{{ErrorText ref="errorText"}}}
       </div>
     `;
   }

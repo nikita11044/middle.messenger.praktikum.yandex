@@ -6,6 +6,7 @@ interface UserDataElementProps {
   isFormField: boolean;
   label: string;
   formValue: string;
+  customValidationOption?: string;
   inputType: InputTypeAttribute;
   placeholder?: string;
   elementValue?: string;
@@ -13,7 +14,7 @@ interface UserDataElementProps {
 
 export class UserDataElement extends Block {
   constructor({
-    isFormField, label, elementValue, formValue, placeholder, inputType,
+    isFormField, label, elementValue, customValidationOption, formValue, placeholder, inputType,
   }: UserDataElementProps) {
     const events = isFormField
       ? {
@@ -21,12 +22,12 @@ export class UserDataElement extends Block {
           formField: {
             focus: () => {
               this.getContent().classList.remove('empty-field');
-              Object.values(this.children)[0].setProps({ error: '' });
+              this.refs.errorText.setProps({ error: '' });
             },
             blur: (e: FocusEvent) => {
               const targetInput = e.target as HTMLInputElement;
               if (targetInput.value !== '') {
-                Object.values(this.children)[0].setProps({ error: errorInField(formValue, targetInput.value) });
+                this.refs.errorText.setProps({ error: errorInField(customValidationOption || formValue, targetInput.value) });
               }
             },
           },
@@ -35,8 +36,12 @@ export class UserDataElement extends Block {
       : {};
 
     super({
-      isFormField, label, elementValue, formValue, placeholder, inputType, events,
+      isFormField, label, elementValue, customValidationOption, formValue, placeholder, inputType, events,
     });
+  }
+
+  showError(error: string): void {
+    this.refs.errorText.setProps({ error });
   }
 
   protected render(): string {
@@ -56,7 +61,7 @@ export class UserDataElement extends Block {
                     {{#if placeholder}} placeholder="{{placeholder}}" {{/if}}
                     {{#if elementValue}} value="{{elementValue}}" {{/if}}/>
             </div>
-            {{{ErrorText}}}  
+            {{{ErrorText ref="errorText"}}}  
         {{else}}
                 <div class="user-data-element__name">{{label}}</div>
                 <div class="user-data-element__value">{{elementValue}}</div>

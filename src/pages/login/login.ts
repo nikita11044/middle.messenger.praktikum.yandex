@@ -15,14 +15,14 @@ export class LoginPage extends Block {
                 let hasErrors;
 
                 const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
-                  acc[fieldName] = (ref.querySelector('input') as HTMLInputElement).value;
+                  acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
                   return acc;
                 }, {} as any);
 
                 Object.entries(data).forEach(([field, value]) => {
                   if (value === '') {
                     hasEmptyFields = true;
-                    this.refs[field].classList.add('access__field_is-empty');
+                    this.refs[field].getContent().classList.add('access__field_is-empty');
                   }
                   if (errorInField(field, value)) {
                     hasErrors = true;

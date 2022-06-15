@@ -15,14 +15,14 @@ export class ChangeProfileData extends Block {
                 let hasErrors;
 
                 const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
-                  acc[fieldName] = (ref.querySelector('input') as HTMLInputElement).value;
+                  acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
                   return acc;
                 }, {} as any);
 
                 Object.entries(data).forEach(([field, value]) => {
                   if (value === '') {
                     hasEmptyFields = true;
-                    this.refs[field].classList.add('empty-field');
+                    this.refs[field].getContent().classList.add('empty-field');
                   }
                   if (errorInField(field, value)) {
                     hasErrors = true;

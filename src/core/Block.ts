@@ -26,7 +26,7 @@ export default class Block<P = any> {
 
   private _eventBus: () => EventBus;
 
-  protected refs: { [key: string]: HTMLElement } = {};
+  protected refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus();

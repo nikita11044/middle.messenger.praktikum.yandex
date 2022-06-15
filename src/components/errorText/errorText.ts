@@ -12,7 +12,7 @@ export class ErrorText extends Block {
 
   protected render(): string {
     return `
-      <div class="error-text">{{#if error}}{{error}}{{/if}}</div>
+      <div data-error-text class="error-text">{{#if error}}{{error}}{{/if}}</div>
     `;
   }
 }
