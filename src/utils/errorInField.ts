@@ -1,26 +1,33 @@
 export function errorInField(field: string, value: string): string {
   switch (field) {
     case 'login': {
-      const isValid = /^[a-zA-Z][a-zA-Z0-9]{3,20}$/.test(value);
+      const isValid = /(?=.*[a-zA-Z])([a-zA-Z0-9-_]){3,20}$/.test(value);
       return isValid ? '' : 'Недопустимый логин';
     }
     case 'password': {
-      const isValid = /^[a-zA-Zа-яёА-ЯЁ0-9]{8,25}$/.test(value);
+      const isValid = /^((?=.*[0-9])|(?=.*[A-Za-z]+))(?=.*[A-Z])(?!.*\s)(?!.*[а-яёА-ЯЁ]).{8,40}$/.test(value);
       return isValid ? '' : 'Недопустимый пароль';
     }
-    // case 'email': {
-    //   return /^[a-zA-Z0-9_.+-]{2,20}@[a-zA-Z0-9-]{2,20}\.[a-z]{2,10}$/.test(value);
-    // }
-    // case 'phone': {
-    //   return /^(\+{1}7{1}|8) ?\(?\d{3}\)? ?\d{3}[ -]?\d{2}[ -]?\d{2}$/.test(value);
-    // }
-    // case 'message': {
-    //   return value !== '';
-    // }
-    // case 'first_name':
-    // case 'last_name': {
-    //   return /^[a-zA-Zа-яёА-ЯЁ]{2,20}$/.test(value);
-    // }
+    case 'email': {
+      const isValid = /.+@[^@]+[a-z]+\.[^@]{2,}/.test(value);
+      return isValid ? '' : 'Неверный формат почты';
+    }
+    case 'phone': {
+      const isValid = /((\\+7|7|8)+([0-9]){10})$|\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\b/.test(value);
+      return isValid ? '' : 'Неверный формат номера';
+    }
+    case 'message': {
+      const isValid = value !== '';
+      return isValid ? '' : 'Сообщение не может быть пустым';
+    }
+    case 'first_name': {
+      const isValid = /^[А-ЯЁA-Z][А-ЯЁA-Zа-яёa-z-]+$/.test(value);
+      return isValid ? '' : 'Некорректный формат имени';
+    }
+    case 'second_name': {
+      const isValid = /^[А-ЯЁA-Z][А-ЯЁA-Zа-яёa-z-]+$/.test(value);
+      return isValid ? '' : 'Некорректный формат фамилии';
+    }
     default: {
       return '';
     }

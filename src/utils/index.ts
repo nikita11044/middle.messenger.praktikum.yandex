@@ -1,2 +1,2 @@
-export { getComponentsLayoutFromArray } from './utils';
+export { getComponentsLayoutFromArray, toSnakeCase } from './utils';
 export { errorInField } from './errorInField';

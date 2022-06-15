@@ -14,10 +14,10 @@ export class LoginPage extends Block {
                 let hasEmptyFields;
                 let hasErrors;
 
-                const data: Record<string, string> = {
-                  login: (this.refs.login.children[1] as HTMLInputElement).value,
-                  password: (this.refs.password.children[1] as HTMLInputElement).value,
-                };
+                const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
+                  acc[fieldName] = (ref.children[1] as HTMLInputElement).value;
+                  return acc;
+                }, {} as any);
 
                 Object.entries(data).forEach(([field, value]) => {
                   if (value === '') {
