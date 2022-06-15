@@ -46,6 +46,10 @@ $fadeGrey: #999999;
     }
 }
 
+.access__field_is-empty::after {
+    border-bottom: 1px solid red;
+}
+
 .access__label {
     align-self: flex-start;
     font-size: 12px;

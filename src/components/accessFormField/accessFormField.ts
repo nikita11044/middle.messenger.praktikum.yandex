@@ -1,27 +1,41 @@
 import { Block } from '../../core';
 import './accessFormField.css';
+import { errorInField } from '../../utils';
 
 interface AccessFormFieldProps {
   value?: string;
   formValue: string;
   label: string;
-  error?: string;
   inputType: InputTypeAttribute;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  error?: string;
 }
 
 export class AccessFormField extends Block {
   constructor({
-    formValue, value = '', label, error, inputType, onFocus, onBlur,
+    formValue, value = '', label, inputType,
   }: AccessFormFieldProps) {
     super({
       formValue,
       value,
       label,
-      error,
       inputType,
-      events: { children: { fieldInput: { focus: onFocus, blur: onBlur } } },
+      events: {
+        children:
+          {
+            fieldInput: {
+              focus: () => {
+                this.getContent().classList.remove('access__field_is-empty');
+                Object.values(this.children)[0].setProps({ error: '' });
+              },
+              blur: (e: FocusEvent) => {
+                const targetInput = e.target as HTMLInputElement;
+                if (targetInput.value !== '') {
+                  Object.values(this.children)[0].setProps({ error: errorInField(formValue, targetInput.value) });
+                }
+              },
+            },
+          },
+      },
     });
   }
 
@@ -31,7 +45,7 @@ export class AccessFormField extends Block {
         <label class="access__label" for="{{formValue}}">{{label}}</label>
         <input class="access__input" data-append-event="fieldInput" 
         name="{{formValue}}" value="{{value}}" type="{{inputType}}" />
-        <div style="margin-top: 10px">{{#if error}}{{error}}{{/if}}</div>
+        {{{ErrorText}}}
       </div>
     `;
   }

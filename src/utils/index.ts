@@ -1,2 +1,2 @@
 export { getComponentsLayoutFromArray } from './utils';
-export { validation } from './validation';
+export { errorInField } from './errorInField';

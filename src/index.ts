@@ -8,10 +8,12 @@ import UserDataElement from './components/user-data-element';
 import Avatar from './components/avatar';
 import AccessFormField from './components/accessFormField';
 import Router from './core/Router';
+import ErrorText from './components/errorText';
 
 inscribeComponent(Button, 'Button');
 inscribeComponent(Link, 'Link');
 inscribeComponent(AccessFormField, 'AccessFormField');
+inscribeComponent(ErrorText, 'ErrorText');
 inscribeComponent(Chat, 'Chat');
 inscribeComponent(Error, 'Error');
 inscribeComponent(Message, 'Message');

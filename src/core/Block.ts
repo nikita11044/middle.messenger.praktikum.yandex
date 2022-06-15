@@ -26,8 +26,6 @@ export default class Block<P = any> {
 
   private _eventBus: () => EventBus;
 
-  protected state: any = {};
-
   protected refs: { [key: string]: HTMLElement } = {};
 
   public constructor(props?: P) {
@@ -37,11 +35,7 @@ export default class Block<P = any> {
       props,
     };
 
-    this.getStateFromProps(props);
-
     this.props = this._makePropsProxy(props || {} as P);
-
-    this.state = this._makePropsProxy(this.state);
 
     this._eventBus = () => eventBus;
 
@@ -61,10 +55,6 @@ export default class Block<P = any> {
     this._element = Block._createDocumentElement('div');
   }
 
-  protected getStateFromProps(props?: P): void {
-    this.state = {};
-  }
-
   init() {
     this._createResources();
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
@@ -81,7 +71,6 @@ export default class Block<P = any> {
     if (!response) {
       return;
     }
-    // debugger;
     this._render();
   }
 
@@ -95,13 +84,6 @@ export default class Block<P = any> {
     }
 
     Object.assign(this.props, nextProps);
-  };
-
-  setState = (nextState: any) => {
-    if (!nextState) {
-      return;
-    }
-    Object.assign(this.state, nextState);
   };
 
   get element() {
@@ -210,7 +192,7 @@ export default class Block<P = any> {
 
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
-      ...this.state, ...this.props, children: this.children, refs: this.refs,
+      ...this.props, children: this.children, refs: this.refs,
     });
 
     Object.entries(this.children).forEach(([id, component]) => {
