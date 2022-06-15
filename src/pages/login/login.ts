@@ -15,7 +15,7 @@ export class LoginPage extends Block {
                 let hasErrors;
 
                 const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
-                  acc[fieldName] = (ref.children[1] as HTMLInputElement).value;
+                  acc[fieldName] = (ref.querySelector('input') as HTMLInputElement).value;
                   return acc;
                 }, {} as any);
 

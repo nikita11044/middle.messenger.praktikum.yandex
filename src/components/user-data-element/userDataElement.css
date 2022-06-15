@@ -1,6 +1,8 @@
 $fadeGray: #EAEAEA;
+$red: #ff2f2f;
 
 .user-data-element {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -14,9 +16,27 @@ $fadeGray: #EAEAEA;
         content: " ";
         border-bottom: 1px solid $fadeGray;
         position: absolute;
-        bottom: -11px;
+        bottom: -6px;
         width: 100%;
     }
+
+     &_form-field {
+        flex-direction: column;
+
+        &:not(:last-child)::after {
+            bottom: 9px;
+        }
+
+        &.empty-field:not(:last-child)::after {
+             border-bottom: 1px solid $red;
+        }
+      }
+}
+
+.user-data-element__input-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .user-data-element__input {

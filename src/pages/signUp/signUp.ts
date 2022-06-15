@@ -33,7 +33,7 @@ export class SignUpPage extends Block {
                   return;
                 }
 
-                console.log('sign in', data);
+                console.log('sign up', data);
               },
             },
           },

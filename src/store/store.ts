@@ -1,5 +1,3 @@
-// export type Store = typeof store;
-
 type ChatData = {
   avatarUrl?: string;
   selected?: boolean;
@@ -19,6 +17,7 @@ type MessageData = {
 type UserProfileDataElement = {
   elementValue: string;
   formValue: string;
+  ref: string;
   label: string;
   inputType: InputTypeAttribute;
 };
@@ -77,36 +76,42 @@ export class Store {
       {
         elementValue: 'noname',
         formValue: 'login',
+        ref: 'login',
         label: 'Логин',
         inputType: 'text',
       },
       {
         elementValue: 'Ноунейм',
         formValue: 'first_name',
+        ref: 'first_name',
         label: 'Имя',
         inputType: 'text',
       },
       {
         elementValue: 'Ноунеймов',
         formValue: 'second_name',
+        ref: 'second_name',
         label: 'Фамилия',
         inputType: 'text',
       },
       {
         elementValue: 'Ноунейм',
         formValue: 'display_name',
+        ref: 'display_name',
         label: 'Имя в чате',
         inputType: 'text',
       },
       {
         elementValue: 'pochta@yandex.ru',
         formValue: 'email',
+        ref: 'email',
         label: 'Почта',
         inputType: 'email',
       },
       {
         elementValue: '+7 (909) 967 30 30',
         formValue: 'phone',
+        ref: 'phone',
         label: 'Телефон',
         inputType: 'phone',
       },
