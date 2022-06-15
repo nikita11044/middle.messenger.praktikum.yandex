@@ -1,44 +1,44 @@
-$fadeGray: #EAEAEA;
+$fadeGray: #eaeaea;
 $red: #ff2f2f;
 
 .user-data-element {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 20px;
 
-    &:first-of-type {
-        margin-top: 60px;
-    }
+  &:first-of-type {
+    margin-top: 60px;
+  }
+
+  &:not(:last-child)::after {
+    content: " ";
+    border-bottom: 1px solid $fadeGray;
+    position: absolute;
+    bottom: -6px;
+    width: 100%;
+  }
+
+  &_form-field {
+    flex-direction: column;
 
     &:not(:last-child)::after {
-        content: " ";
-        border-bottom: 1px solid $fadeGray;
-        position: absolute;
-        bottom: -6px;
-        width: 100%;
+      bottom: 9px;
     }
 
-     &_form-field {
-        flex-direction: column;
-
-        &:not(:last-child)::after {
-            bottom: 9px;
-        }
-
-        &.empty-field:not(:last-child)::after {
-             border-bottom: 1px solid $red;
-        }
-      }
+    &.empty-field:not(:last-child)::after {
+      border-bottom: 1px solid $red;
+    }
+  }
 }
 
 .user-data-element__input-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .user-data-element__input {
-    text-align: end;
+  text-align: end;
 }
