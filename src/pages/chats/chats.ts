@@ -1,8 +1,26 @@
 import { Block } from '../../core';
 import { Store } from '../../store';
-import { getComponentsLayoutFromArray } from '../../utils';
+import { errorInField, getComponentsLayoutFromArray } from '../../utils';
 
 export class ChatsPage extends Block {
+  constructor() {
+    super({
+      events: {
+        children: {
+          messageForm: {
+            submit: (e: SubmitEvent) => {
+              e.preventDefault();
+              const messageText = (this.getContent().querySelector('#messageText') as HTMLInputElement).value;
+              if (!errorInField('message', messageText)) {
+                console.log({ messageText });
+              }
+            },
+          },
+        },
+      },
+    });
+  }
+
   protected render(): string {
     const chatsLayout = getComponentsLayoutFromArray('Chat', Store.getAppState().chats);
     const messageLayout = getComponentsLayoutFromArray('Message', Store.getAppState().messages);
@@ -35,10 +53,10 @@ export class ChatsPage extends Block {
                         </ul>  
                     </section>
                 </div>
-                <form class="message-form" name="message-form">
+                <form data-append-event="messageForm" class="message-form" name="message-form">
                     <input class="message-form__attachment-input" type="file" name="image" form="message-form"/>
                     <button class="icon-button icon-button_attachment"></button>
-                    <input class="message-form__message-input" oninput="this.parentNode.dataset.value = this.value" name="message" form="message-form" placeholder="Сообщение"/>
+                    <input id="messageText" class="message-form__message-input" oninput="this.parentNode.dataset.value = this.value" name="message" form="message-form" placeholder="Сообщение"/>
                     <button class="icon-button icon-button_arrow-right" type="submit"></button>
                 </form>
             </div>
