@@ -2,7 +2,11 @@ import { Block } from '../../core';
 import { Store } from '../../store';
 import { errorInField, getComponentsLayoutFromArray } from '../../utils';
 
-export class ChangeProfileData extends Block {
+interface ChangeProfileDataProps {
+  events?: { children?: Record<string, Record<string, (e: SubmitEvent) => void>> }
+}
+
+export class ChangeProfileData extends Block<ChangeProfileDataProps> {
   constructor() {
     super({
       events: {
@@ -14,12 +18,12 @@ export class ChangeProfileData extends Block {
                 let hasEmptyFields;
                 let hasErrors;
 
-                const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
+                const changeProfileData: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
                   acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
                   return acc;
                 }, {} as any);
 
-                Object.entries(data).forEach(([field, value]) => {
+                Object.entries(changeProfileData).forEach(([field, value]) => {
                   if (value === '') {
                     hasEmptyFields = true;
                     this.refs[field].getContent().classList.add('empty-field');
@@ -29,14 +33,14 @@ export class ChangeProfileData extends Block {
                   }
                 });
 
-                const dataChanged = Store.getAppState().userProfileDataElements.some((el) => el.elementValue !== data[el.formValue]);
+                const dataChanged = Store.getAppState().userProfileDataElements.some((el) => el.elementValue !== changeProfileData[el.formValue]);
 
                 if (hasEmptyFields || hasErrors) {
                   return;
                 }
 
                 if (dataChanged) {
-                  console.log('change profile data', data);
+                  console.log('change profile data', changeProfileData);
                 }
               },
             },

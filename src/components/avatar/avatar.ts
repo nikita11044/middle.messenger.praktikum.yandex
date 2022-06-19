@@ -5,7 +5,7 @@ interface AvatarProps {
   avatarUrl?: string;
 }
 
-export class Avatar extends Block {
+export class Avatar extends Block<AvatarProps> {
   constructor({ avatarUrl }: AvatarProps) {
     super({ avatarUrl });
   }

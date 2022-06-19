@@ -10,13 +10,12 @@ interface UserDataElementProps {
   inputType: InputTypeAttribute;
   placeholder?: string;
   elementValue?: string;
+  events?: { children?: Record<string, Record<string, () => void>> }
 }
 
 export class UserDataElement extends Block {
-  constructor({
-    isFormField, label, elementValue, customValidationOption, formValue, placeholder, inputType,
-  }: UserDataElementProps) {
-    const events = isFormField
+  constructor(props: UserDataElementProps) {
+    const events = props.isFormField
       ? {
         children: {
           formField: {
@@ -27,7 +26,7 @@ export class UserDataElement extends Block {
             blur: (e: FocusEvent) => {
               const targetInput = e.target as HTMLInputElement;
               if (targetInput.value !== '') {
-                this.refs.errorText.setProps({ error: errorInField(customValidationOption || formValue, targetInput.value) });
+                this.refs.errorText.setProps({ error: errorInField(props.customValidationOption || props.formValue, targetInput.value) });
               }
             },
           },
@@ -35,9 +34,7 @@ export class UserDataElement extends Block {
       }
       : {};
 
-    super({
-      isFormField, label, elementValue, customValidationOption, formValue, placeholder, inputType, events,
-    });
+    super({ ...props, events });
   }
 
   showError(error: string): void {

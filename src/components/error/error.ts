@@ -6,13 +6,9 @@ interface ErrorProps {
   descr: string;
 }
 
-export class Error extends Block {
-  constructor({
-    code, descr,
-  }: ErrorProps) {
-    super({
-      code, descr,
-    });
+export class Error extends Block<ErrorProps> {
+  constructor(props: ErrorProps) {
+    super({ ...props });
   }
 
   protected render(): string {

@@ -3,7 +3,11 @@ import { errorInField } from '../../utils';
 import { Store } from '../../store';
 import UserDataElement from '../../components/user-data-element';
 
-export class ChangePassword extends Block {
+interface ChangePasswordProps {
+  events?: { children?: Record<string, Record<string, (e: SubmitEvent) => void>> }
+}
+
+export class ChangePassword extends Block<ChangePasswordProps> {
   constructor() {
     super({
       events: {
@@ -15,12 +19,12 @@ export class ChangePassword extends Block {
                 let hasEmptyFields;
                 let hasErrors;
 
-                const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
+                const changePasswordData: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
                   acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
                   return acc;
                 }, {} as any);
 
-                Object.entries(data).forEach(([field, value]) => {
+                Object.entries(changePasswordData).forEach(([field, value]) => {
                   if (value === '') {
                     hasEmptyFields = true;
                     this.refs[field].getContent().classList.add('empty-field');
@@ -34,7 +38,7 @@ export class ChangePassword extends Block {
                   return;
                 }
 
-                const passwordsDontMatch = data.confirmPassword !== data.newPassword;
+                const passwordsDontMatch = changePasswordData.confirmPassword !== changePasswordData.newPassword;
 
                 if (passwordsDontMatch) {
                   (this.refs.confirmPassword as UserDataElement).showError('Пароли не совпадают');
@@ -42,7 +46,7 @@ export class ChangePassword extends Block {
                   return;
                 }
 
-                const oldPasswordEqualsNew = Store.getAppState().password === data.newPassword;
+                const oldPasswordEqualsNew = Store.getAppState().password === changePasswordData.newPassword;
 
                 if (oldPasswordEqualsNew) {
                   (this.refs.confirmPassword as UserDataElement).showError('Новый пароль совпадает со старым');
@@ -50,7 +54,7 @@ export class ChangePassword extends Block {
                   return;
                 }
 
-                console.log('change profile data', data);
+                console.log('change profile data', changePasswordData);
               },
             },
           },

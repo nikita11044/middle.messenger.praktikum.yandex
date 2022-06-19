@@ -10,13 +10,9 @@ interface ChatProps {
   lastMessageCount: number;
 }
 
-export class Chat extends Block {
-  constructor({
-    selected, avatarUrl, chatName, lastMessageCount, lastMessageTime, lastMessage,
-  }: ChatProps) {
-    super({
-      selected, avatarUrl, chatName, lastMessageCount, lastMessageTime, lastMessage,
-    });
+export class Chat extends Block<ChatProps> {
+  constructor(props: ChatProps) {
+    super({ ...props });
   }
 
   protected render(): string {

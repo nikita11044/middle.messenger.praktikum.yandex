@@ -7,20 +7,17 @@ interface LinkProps {
   imageUrl?: string;
   to: string;
   text?: string;
+  events?: { root?: Record<string, (e: MouseEvent) => void> }
 }
 
-export class Link extends Block {
-  constructor({
-    classes, imageUrl, to, text,
-  }: LinkProps) {
+export class Link extends Block<LinkProps> {
+  constructor(props: LinkProps) {
     const onClick = (e: MouseEvent) => {
       e.preventDefault();
-      Router.navigate(to);
+      Router.navigate(props.to);
     };
 
-    super({
-      classes, to, imageUrl, text, events: { root: { click: onClick } },
-    });
+    super({ ...props, events: { root: { click: onClick } } });
   }
 
   protected render(): string {

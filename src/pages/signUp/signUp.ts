@@ -1,7 +1,11 @@
 import { Block } from '../../core';
 import { errorInField } from '../../utils';
 
-export class SignUpPage extends Block {
+interface SignUpPageProps {
+  events: { children?: Record<string, Record<string, (e: SubmitEvent) => void>> }
+}
+
+export class SignUpPage extends Block<SignUpPageProps> {
   constructor() {
     super({
       events: {
@@ -14,12 +18,12 @@ export class SignUpPage extends Block {
                 let hasEmptyFields;
                 let hasErrors;
 
-                const data: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
+                const signUpData: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
                   acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
                   return acc;
                 }, {} as any);
 
-                Object.entries(data).forEach(([field, value]) => {
+                Object.entries(signUpData).forEach(([field, value]) => {
                   if (value === '') {
                     hasEmptyFields = true;
                     this.refs[field].getContent().classList.add('access__field_is-empty');
@@ -33,7 +37,7 @@ export class SignUpPage extends Block {
                   return;
                 }
 
-                console.log('sign up', data);
+                console.log('sign up', signUpData);
               },
             },
           },

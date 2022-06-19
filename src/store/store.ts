@@ -110,7 +110,7 @@ export class Store {
         inputType: 'email',
       },
       {
-        elementValue: '+7 (909) 967 30 30',
+        elementValue: '+79099673030',
         formValue: 'phone',
         ref: 'phone',
         label: 'Телефон',

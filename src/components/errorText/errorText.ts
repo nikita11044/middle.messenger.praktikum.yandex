@@ -5,7 +5,7 @@ interface ErrorTextProps {
   error?: string;
 }
 
-export class ErrorText extends Block {
+export class ErrorText extends Block<ErrorTextProps> {
   constructor({ error }: ErrorTextProps) {
     super({ error });
   }

@@ -2,19 +2,14 @@ import { Block } from '../../core';
 import './button.css';
 
 interface ButtonProps {
-  classes: string;
+  classes?: string;
   title: string;
   form?: string;
-  onClick: () => void;
 }
 
-export class Button extends Block {
-  constructor({
-    classes, title, form, onClick,
-  }: ButtonProps) {
-    super({
-      classes, title, form, events: { root: { click: onClick } },
-    });
+export class Button extends Block<ButtonProps> {
+  constructor(props: ButtonProps) {
+    super({ ...props });
   }
 
   protected render(): string {

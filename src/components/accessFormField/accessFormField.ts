@@ -9,18 +9,13 @@ interface AccessFormFieldProps {
   label: string;
   inputType: InputTypeAttribute;
   error?: string;
+  events?: { children?: Record<string, Record<string, (e: FocusEvent) => void>> }
 }
 
-export class AccessFormField extends Block {
-  constructor({
-    customValidationOption, formValue, value = '', label, inputType,
-  }: AccessFormFieldProps) {
+export class AccessFormField extends Block<AccessFormFieldProps> {
+  constructor(props: AccessFormFieldProps) {
     super({
-      customValidationOption,
-      formValue,
-      value,
-      label,
-      inputType,
+      ...props,
       events: {
         children:
           {
@@ -32,7 +27,7 @@ export class AccessFormField extends Block {
               blur: (e: FocusEvent) => {
                 const targetInput = e.target as HTMLInputElement;
                 if (targetInput.value !== '') {
-                  this.refs.errorText.setProps({ error: errorInField(customValidationOption || formValue, targetInput.value) });
+                  this.refs.errorText.setProps({ error: errorInField(props.customValidationOption || props.formValue, targetInput.value) });
                 }
               },
             },

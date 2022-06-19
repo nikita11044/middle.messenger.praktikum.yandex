@@ -2,7 +2,11 @@ import { Block } from '../../core';
 import { Store } from '../../store';
 import { errorInField, getComponentsLayoutFromArray } from '../../utils';
 
-export class ChatsPage extends Block {
+interface ChatsPageProps {
+  events: { children?: Record<string, Record<string, (e: SubmitEvent) => void>> }
+}
+
+export class ChatsPage extends Block<ChatsPageProps> {
   constructor() {
     super({
       events: {

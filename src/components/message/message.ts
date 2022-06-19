@@ -8,13 +8,9 @@ interface MessageProps {
   messageTime: Date;
 }
 
-export class Message extends Block {
-  constructor({
-    imageUrl, destination, text, messageTime,
-  }: MessageProps) {
-    super({
-      imageUrl, destination, text, messageTime,
-    });
+export class Message extends Block<MessageProps> {
+  constructor(props: MessageProps) {
+    super({ ...props });
   }
 
   protected render(): string {
