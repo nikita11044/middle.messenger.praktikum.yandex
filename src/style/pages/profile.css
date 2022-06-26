@@ -1,103 +1,96 @@
-$lightBackground: #FBFBFB;
-$blue: #3369F3;
-$fadeGray: #EAEAEA;
+$lightBackground: #fbfbfb;
+$blue: #3369f3;
+$fadeGray: #eaeaea;
 
 .profile {
-    display: flex;
-    flex-direction: row;
-    height: 100vh
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
 }
 
 .return-button-wrapper {
-    width: 64px;
-    background-color: $lightBackground;
-    position: relative;
+  width: 64px;
+  background-color: $lightBackground;
+  position: relative;
 }
 
 .return-button {
-    display: inline-block;
-    transform: rotate(180deg);
-    position: absolute;
-    top: 50%;
-    left: 16px;
+  display: inline-block;
+  background-image: url("../../../static/images/arrow-right.svg");
+  transform: rotate(180deg);
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 28px;
+  height: 28px;
 }
 
 .profile-data {
-    width: 510px;
-    height: 551px;
-    margin: auto;
+  width: 510px;
+  height: 551px;
+  margin: auto;
 }
 
 .avatar {
-    margin: 0 auto;
-    width: 130px;
-    position: relative;
+  margin: 0 auto;
+  width: 130px;
+  position: relative;
 }
 
 .avatar-form__submit {
-    height: 130px;
-    text-align: center;
-    color: #fff;
-    width: 100%;
-    background-color: black;
-    opacity: 0;
-    border-radius: 50%;
-    display: block;
-    position: absolute;
-    top: 0;
-    text-align: center;
+  height: 130px;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  background-color: black;
+  opacity: 0;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 0;
 
-    &:hover {
-       opacity: 0.5;
-       cursor: pointer;
-    }
+  &:hover {
+    opacity: 0.5;
+    cursor: pointer;
+  }
 }
 
 .avatar-form__input {
-    visibility: hidden;
-}
-
-.avatar-image {
-    height: 130px;
-    border-radius: 50%;
-    width: 100%;
-    z-index: -1;
+  visibility: hidden;
 }
 
 .profile-data__user-name {
-    margin-top: 21px;
-    text-align: center;
+  margin-top: 21px;
+  text-align: center;
 }
 
 .profile-data__control-panel_inside-form {
-    text-align: center;
-    margin-top: 60px;
+  text-align: center;
+  margin-top: 60px;
 }
 
 .control-panel__link {
-    display: block;
-    position: relative;
+  display: block;
+  position: relative;
+  margin-bottom: 21px;
+  color: $blue;
+  font-size: 13px;
+  line-height: 13px;
 
-    margin-bottom: 21px;
+  &_red-text {
+    color: red;
+  }
 
-    color: $blue;
-    font-size: 13px;
-    line-height: 13px;
+  &:first-of-type {
+    margin-top: 60px;
+  }
 
-    &_red-text {
-        color: red;
-    }
-
-    &:first-of-type {
-        margin-top: 60px;
-    }
-
-    &:not(:last-child)::after {
-        content: " ";
-        border-bottom: 1px solid $fadeGray;
-        position: absolute;
-        bottom: -11px;
-        left: 0;
-        width: 100%;
-    }
+  &:not(:last-child)::after {
+    content: " ";
+    border-bottom: 1px solid $fadeGray;
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    width: 100%;
+  }
 }

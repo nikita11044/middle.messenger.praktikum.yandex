@@ -1,90 +1,75 @@
-$blue: #3369F3;
-$fadeBlue: #E4EDFD;
-$dark: #1E1E1E;
-$gray: #999999;
-$fadeGray: #EAEAEA;
-$lightBackground: #FBFBFB;
-$messageTo: #F8F8F8;
-$messageFrom: #E4EDFD;
+$blue: #3369f3;
+$fadeBlue: #e4edfd;
+$dark: #1e1e1e;
+$gray: #999;
+$fadeGray: #eaeaea;
+$lightBackground: #fbfbfb;
+$messageTo: #f8f8f8;
+$messageFrom: #e4edfd;
 
 .message {
-    position: relative;
+  position: relative;
+  width: max-content;
+  min-width: 115px;
+  max-width: 402px;
+  margin-bottom: 10px;
+  padding: 11px;
+  border-radius: 12px;
+  color: $dark;
 
+  &:first-of-type {
+    margin-top: 10px;
+  }
+
+  &.message_to {
+    background-color: $messageTo;
+  }
+
+  &.message_from {
+    margin-left: auto;
+    background-color: $messageFrom;
+
+    .message__time::before {
+      content: url(../../../static/images/ticks.svg);
+      width: 10px;
+      height: 5px;
+      position: absolute;
+      left: -12px;
+    }
+  }
+
+  &.message_with_image {
     width: max-content;
-    min-width: 115px;
-    max-width: 402px;
+    padding: 0;
+    background: none;
 
-    margin-bottom: 10px;
-    padding: 11px;
-
-    border-radius: 12px;
-
-    color: $dark;
-
-    &:first-of-type {
-        margin-top: 10px;
+    .message__time {
+      position: absolute;
+      width: 28px;
+      height: 12px;
+      top: calc(100% - 24px);
+      left: calc(100% - 37px);
+      background-color: $gray;
+      padding: 2px 3px;
+      text-align: center;
+      color: white;
+      border-radius: 7px;
     }
-
-    &.message_to {
-        background-color: $messageTo;
-    }
-
-    &.message_from {
-        margin-left: auto;
-
-        background-color: $messageFrom;
-
-        .message__time::before {
-            content: url(../../../static/images/ticks.svg);
-            width: 10px;
-            height: 5px;
-
-            position: absolute;
-            left: -12px;
-        }
-    }
-
-    &.message_with_image {
-        width: max-content;
-        padding: 0;
-        background: none;
-
-        .message__time {
-            position: absolute;
-
-            width: 28px;
-            height: 12px;
-
-            top: calc(100% - 24px);
-            left: calc(100% - 37px);
-            
-            background-color: $gray;
-            
-            padding: 2px 3px;
-            
-            text-align: center;
-            color: white;
-            
-            border-radius: 7px;
-        }
-    }
+  }
 }
 
 .message__text {
-    font-size: 12px;
-    line-height: 15px;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 .message__time {
-    position: relative;
-    display: block;
-
-    width: 23px;
-    height: 9px; 
-
-    margin-left: auto;
-    
-    font-size: 9px;
-    line-height: 9px;
-    color: $gray;
+  position: relative;
+  display: block;
+  width: 23px;
+  height: 9px;
+  margin-left: auto;
+  font-size: 9px;
+  line-height: 9px;
+  color: $gray;
 }

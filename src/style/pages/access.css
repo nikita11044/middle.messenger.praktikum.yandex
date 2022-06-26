@@ -1,88 +1,56 @@
-$blue: #3369F3;
-$fadeGrey: #999999;
+$blue: #3369f3;
+$fadeGrey: #999;
 
 .access {
-    width: 350px;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    text-align: center;
-    
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
 }
 
 .access__header {
-    font-size: 20px;
-    margin-top: 50px;
+  font-size: 20px;
+  margin-top: 50px;
 }
 
 .access__form {
-    margin: 0px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.access__field {
-    display: inline-flex;
-    position: relative;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 16px;
-        
-    &::after {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        content: "\00a0";
-        border-bottom: 1px solid $blue;
-    }
-}
-
-.access__label {
-    align-self: flex-start;
-    font-size: 12px;
-    font-weight: 12px;
-    color: $fadeGrey;
-}
-
-.access__input {
-    padding: 6px 0 7px;
-    outline: none;
+  margin: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .access__buttons-block {
-    .button-contained {
-        margin-bottom: 14px;
-    }
+  .button-contained {
+    margin-bottom: 14px;
+  }
 }
 
 .sign-in {
-    height: 450px;
+  height: 450px;
 
-    .access__form {
-        height: 80%;
-    }
+  .access__form {
+    height: 80%;
+  }
 
-    .access__buttons-block {
-        height: 20%;
-    }
+  .access__buttons-block {
+    height: 20%;
+  }
 }
 
 .sign-up {
-    height: 670px;
+  height: 670px;
 
-    .access__form {
-        height: 85%;
-    }
+  .access__form {
+    height: 85%;
+  }
 
-    .access__buttons-block {
-        height: 15%;
-    }
+  .access__buttons-block {
+    height: 15%;
+  }
 }

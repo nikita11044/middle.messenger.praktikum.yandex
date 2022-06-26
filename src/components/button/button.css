@@ -1,12 +1,12 @@
-$blue: #3369F3;
+$blue: #3369f3;
 
 .button-contained {
-    width: 280px;
-    height: 37px;
-    background-color: $blue;
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  width: 280px;
+  height: 37px;
+  background-color: $blue;
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }

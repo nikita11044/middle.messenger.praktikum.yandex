@@ -1,0 +1,36 @@
+$blue: #3369f3;
+$fadeGrey: #999;
+$red: #ff2f2f;
+
+.access__field {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 16px;
+
+  &::after {
+    position: absolute;
+    top: 41px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    content: "\00a0";
+    border-bottom: 1px solid $blue;
+  }
+}
+
+.access__field_is-empty::after {
+  border-bottom: 1px solid red;
+}
+
+.access__label {
+  align-self: flex-start;
+  font-size: 12px;
+  color: $fadeGrey;
+}
+
+.access__input {
+  padding: 6px 0 7px;
+  outline: none;
+}
