@@ -61,7 +61,7 @@ export class LoginPage extends Block<LoginPageProps> {
                 </div>
                 <div class="access__buttons-block">
                     {{{Button classes="access__button" title="Войти" type="submit"}}}
-                    {{{Link classes="access__link" to="SIGN_UP" text="Нет аккаунта?"}}}
+                    {{{Link classes="access__link" to="/sign-up" text="Нет аккаунта?"}}}
                 </div>
             </form>
         </div>

@@ -208,4 +208,12 @@ export default class Block<P = any> {
 
     return fragment.content;
   }
+
+  show() {
+    this.getContent().classList.remove('hidden');
+  }
+
+  hide() {
+    this.getContent().classList.add('hidden');
+  }
 }

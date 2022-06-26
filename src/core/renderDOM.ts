@@ -1,8 +1,9 @@
 import Block from './Block';
 
-export default function renderDOM(component: Block) {
-  const root = document.querySelector('#app');
+export default function renderDOM(query: string, component: Block) {
+  const root = document.querySelector(query);
 
   root!.innerHTML = '';
   root!.appendChild(component.getContent());
+  return root;
 }
