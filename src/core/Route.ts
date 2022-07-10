@@ -1,5 +1,6 @@
-import Block from '../Block';
-import { renderDOM } from '../index';
+import Block from './Block';
+import { renderDOM } from './index';
+import { isEqual } from '../utils';
 
 export default class Route {
   private _block: Block | null;
@@ -26,21 +27,16 @@ export default class Route {
 
   leave(): void {
     if (this._block) {
-      this._block.hide();
+      this._block.dispatchComponentWillUnmount();
     }
   }
 
   match(pathname: string): boolean {
-    return pathname === this._pathname;
+    return pathname.split('?')[0] === this._pathname;
   }
 
   render() {
-    if (!this._block) {
-      this._block = new this._blockClass();
-      renderDOM(this._props.rootQuery, this._block);
-      return;
-    }
-
-    this._block.show();
+    this._block = new this._blockClass();
+    renderDOM(this._props.rootQuery, this._block);
   }
 }

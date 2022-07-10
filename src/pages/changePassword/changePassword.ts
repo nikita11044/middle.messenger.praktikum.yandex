@@ -1,65 +1,72 @@
 import { Block } from '../../core';
 import { errorInField } from '../../utils';
-import { Store } from '../../store';
-import UserDataElement from '../../components/user-data-element';
+import UserDataElement from '../../components/userDataElement';
+import profileController from '../../controllers/ProfileController';
+import store from '../../core/store';
+import authController from '../../controllers/AuthController';
+import Router from '../../core/Router';
 
-interface ChangePasswordProps {
-  events?: { children?: Record<string, Record<string, (e: SubmitEvent) => void>> }
-}
-
-export class ChangePassword extends Block<ChangePasswordProps> {
+export class ChangePassword extends Block {
   constructor() {
-    super({
-      events: {
-        children:
-          {
-            changePasswordForm: {
-              submit: (e: SubmitEvent) => {
-                e.preventDefault();
-                let hasEmptyFields;
-                let hasErrors;
+    const events = {
+      children:
+        {
+          changePasswordForm: {
+            submit: async (e: Event) => {
+              e.preventDefault();
+              let hasEmptyFields;
+              let hasErrors;
 
-                const changePasswordData: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
-                  acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
-                  return acc;
-                }, {} as any);
+              const changePasswordData: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
+                acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
+                return acc;
+              }, {} as any);
 
-                Object.entries(changePasswordData).forEach(([field, value]) => {
-                  if (value === '') {
-                    hasEmptyFields = true;
-                    this.refs[field].getContent().classList.add('empty-field');
-                  }
-                  if (errorInField('password', value)) {
-                    hasErrors = true;
-                  }
-                });
-
-                if (hasEmptyFields || hasErrors) {
-                  return;
+              Object.entries(changePasswordData).forEach(([field, value]) => {
+                if (value === '') {
+                  hasEmptyFields = true;
+                  this.refs[field].getContent().classList.add('empty-field');
                 }
-
-                const passwordsDontMatch = changePasswordData.confirmPassword !== changePasswordData.newPassword;
-
-                if (passwordsDontMatch) {
-                  (this.refs.confirmPassword as UserDataElement).showError('Пароли не совпадают');
-                  (this.refs.newPassword as UserDataElement).showError('Пароли не совпадают');
-                  return;
+                if (errorInField('password', value)) {
+                  hasErrors = true;
                 }
+              });
 
-                const oldPasswordEqualsNew = Store.getAppState().password === changePasswordData.newPassword;
+              if (hasEmptyFields || hasErrors) {
+                return;
+              }
 
-                if (oldPasswordEqualsNew) {
-                  (this.refs.confirmPassword as UserDataElement).showError('Новый пароль совпадает со старым');
-                  (this.refs.newPassword as UserDataElement).showError('Новый пароль совпадает со старым');
-                  return;
-                }
+              const passwordsDontMatch = changePasswordData.confirmPassword !== changePasswordData.newPassword;
 
-                console.log('change profile data', changePasswordData);
-              },
+              if (passwordsDontMatch) {
+                (this.refs.confirmPassword as UserDataElement).showError('Пароли не совпадают');
+                (this.refs.newPassword as UserDataElement).showError('Пароли не совпадают');
+                return;
+              }
+
+              try {
+                await profileController.changePassword({ oldPassword: changePasswordData.oldPassword, newPassword: changePasswordData.newPassword });
+              } catch (error) {
+                alert(error);
+              }
             },
           },
-      },
-    });
+        },
+    };
+
+    super({}, events);
+  }
+
+  async preInit() {
+    const authorized = await authController.isAuth();
+    if (!authorized) {
+      const router = new Router();
+      router.go('/');
+    }
+  }
+
+  componentWillUnmount() {
+    store.unsubscribe('ChangePassword');
   }
 
   protected render(): string {
@@ -67,7 +74,7 @@ export class ChangePassword extends Block<ChangePasswordProps> {
       <main>
     <div class="profile">
         <div class="return-button-wrapper">
-            {{{Link classes="return-button" to="STEP_BACK"}}}
+            {{{Link classes="return-button" to="/profile"}}}
         </div>
         <div class="profile-data">
             <div class="avatar">
@@ -96,7 +103,7 @@ export class ChangePassword extends Block<ChangePasswordProps> {
                         ref="confirmPassword"
                         isFormField="true"}}}
                 <div class="profile-data__control-panel profile-data__control-panel_inside-form">
-                    {{{Button title="Сохранить" type="submit"}}}
+                    {{{Button contained="true" title="Сохранить" type="submit"}}}
                 </div>
             </form>
         </div>

@@ -1,16 +1,10 @@
-$blue: #3369f3;
-$fadeBlue: #e4edfd;
 $dark: #1e1e1e;
-$gray: #999;
-$fadeGray: #eaeaea;
-$lightBackground: #fbfbfb;
 $messageTo: #f8f8f8;
 $messageFrom: #e4edfd;
 
 .message {
   position: relative;
   width: max-content;
-  min-width: 115px;
   max-width: 402px;
   margin-bottom: 10px;
   padding: 11px;
@@ -28,48 +22,10 @@ $messageFrom: #e4edfd;
   &.message_from {
     margin-left: auto;
     background-color: $messageFrom;
-
-    .message__time::before {
-      content: url(../../../static/images/ticks.svg);
-      width: 10px;
-      height: 5px;
-      position: absolute;
-      left: -12px;
-    }
-  }
-
-  &.message_with_image {
-    width: max-content;
-    padding: 0;
-    background: none;
-
-    .message__time {
-      position: absolute;
-      width: 28px;
-      height: 12px;
-      top: calc(100% - 24px);
-      left: calc(100% - 37px);
-      background-color: $gray;
-      padding: 2px 3px;
-      text-align: center;
-      color: white;
-      border-radius: 7px;
-    }
   }
 }
 
 .message__text {
   font-size: 12px;
   line-height: 15px;
-}
-
-.message__time {
-  position: relative;
-  display: block;
-  width: 23px;
-  height: 9px;
-  margin-left: auto;
-  font-size: 9px;
-  line-height: 9px;
-  color: $gray;
 }

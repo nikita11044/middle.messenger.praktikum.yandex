@@ -1,5 +1,4 @@
 import Route from './Route';
-import Block from '../Block';
 
 export default class Router {
   public routes: Route[];
@@ -25,7 +24,7 @@ export default class Router {
     Router._instance = this;
   }
 
-  use(pathname: string, block: typeof Block) {
+  use(pathname: string, block: any) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
     this.routes.push(route);
@@ -35,16 +34,18 @@ export default class Router {
 
   start() {
     window.onpopstate = ((event: PopStateEvent) => {
-      this._onRoute(event.currentTarget.location.pathname);
+      const target = event.currentTarget as Window;
+      this._onRoute(target!.location.pathname);
     });
 
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+  private _onRoute(pathname: string) {
+    let route = this.getRoute(pathname);
+
     if (!route) {
-      return;
+      route = this.getRoute('*');
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
@@ -56,12 +57,8 @@ export default class Router {
   }
 
   go(pathname: string) {
-    console.log(window.location);
-    console.log(pathname);
-    if (pathname !== window.location.pathname) {
-      this.history.pushState({}, '', pathname);
-      this._onRoute(pathname);
-    }
+    this.history.pushState({}, '', pathname);
+    this._onRoute(pathname);
   }
 
   back() {
@@ -74,5 +71,9 @@ export default class Router {
 
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  static getQueryParam(param: string) {
+    return new URLSearchParams(document.location.search).get(param);
   }
 }

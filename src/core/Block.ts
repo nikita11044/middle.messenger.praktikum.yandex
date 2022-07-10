@@ -1,16 +1,21 @@
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
 import EventBus from './EventBus';
+import { isEmpty } from '../utils';
 
 type Meta<P = any> = {
   props: P;
 };
 
+export type Events = { root?: Record<string, (e: Event) => void>, children?: Record<string, Record<string, (e: Event) => void>> };
+
 export default class Block<P = any> {
   static EVENTS: Record<string, string> = {
+    PRE_INIT: 'pre-init',
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
   } as const;
 
@@ -22,18 +27,22 @@ export default class Block<P = any> {
 
   protected readonly props: P;
 
+  protected events: Events;
+
   protected children: { [id: string]: Block } = {};
 
   private _eventBus: () => EventBus;
 
   protected refs: { [key: string]: Block } = {};
 
-  public constructor(props?: P) {
+  constructor(props?: P, events: Events = {}) {
     const eventBus = new EventBus();
 
     this._meta = {
       props,
     };
+
+    this.events = events;
 
     this.props = this._makePropsProxy(props || {} as P);
 
@@ -41,19 +50,28 @@ export default class Block<P = any> {
 
     this._registerEvents(eventBus);
 
+    eventBus.emit(Block.EVENTS.PRE_INIT);
     eventBus.emit(Block.EVENTS.INIT, this.props);
   }
 
   private _registerEvents(eventBus: EventBus) {
+    eventBus.on(Block.EVENTS.PRE_INIT, this._preInit.bind(this));
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
   private _createResources() {
     this._element = Block._createDocumentElement('div');
   }
+
+  private _preInit() {
+    this.preInit();
+  }
+
+  preInit() {}
 
   init() {
     this._createResources();
@@ -76,6 +94,34 @@ export default class Block<P = any> {
 
   componentDidUpdate(currentProps: P, incomingProps: P) {
     return true;
+  }
+
+  public dispatchComponentDidMount() {
+    this._eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this._render();
+  }
+
+  private _componentWillUnmount() {
+    this.componentWillUnmount();
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentWillUnmount();
+    });
+  }
+
+  public componentWillUnmount() {}
+
+  public dispatchComponentWillUnmount() {
+    this._eventBus().emit(Block.EVENTS.FLOW_CWU);
+    this._unmount();
+  }
+
+  private _unmount() {
+    this._removeEvents();
+
+    if (this._element) {
+      this._element.remove();
+    }
   }
 
   setProps = (nextProps: P) => {
@@ -142,54 +188,53 @@ export default class Block<P = any> {
   }
 
   private _removeEvents() {
-    const events: { root?: Record<string, () => void>, children?: Record<string, Record<string, () => void>> } = (this.props as any).events;
-
-    if (!events || !events.root || !this._element) {
+    if (isEmpty(this.events) || !this.events.root || !this._element) {
       return;
     }
 
-    if (events.root) {
-      Object.entries(events.root).forEach(([event, listener]) => {
+    if (this.events.root) {
+      Object.entries(this.events.root).forEach(([event, listener]) => {
         this._element!.removeEventListener(event, listener);
       });
     }
 
-    if (events.children) {
-      Object.entries(events.children).forEach(([dataValue, eventRecord]) => {
+    if (this.events.children) {
+      Object.entries(this.events.children).forEach(([dataValue, eventRecord]) => {
         const child = this._element!.querySelector(`[data-append-event=${dataValue}]`);
-        Object.entries(eventRecord).forEach(([event, listener]) => {
-          child!.removeEventListener(event, listener);
-        });
+        if (child) {
+          Object.entries(eventRecord).forEach(([event, listener]) => {
+            child.removeEventListener(event, listener);
+          });
+        }
       });
     }
   }
 
   private _addEvents() {
-    const events: { root?: Record<string, () => void>, children?: Record<string, Record<string, () => void>> } = (this.props as any).events;
-
-    if (!events) {
+    if (isEmpty(this.events)) {
       return;
     }
 
-    if (events.root) {
-      Object.entries(events.root).forEach(([event, listener]) => {
+    if (this.events.root) {
+      Object.entries(this.events.root).forEach(([event, listener]) => {
         this._element!.addEventListener(event, listener);
       });
     }
 
-    if (events.children) {
-      Object.entries(events.children).forEach(([dataValue, eventRecord]) => {
+    if (this.events.children) {
+      Object.entries(this.events.children).forEach(([dataValue, eventRecord]) => {
         const child = this._element!.querySelector(`[data-append-event=${dataValue}]`);
-        Object.entries(eventRecord).forEach(([event, listener]) => {
-          child!.addEventListener(event, listener);
-        });
+        if (child) {
+          Object.entries(eventRecord).forEach(([event, listener]) => {
+            child.addEventListener(event, listener);
+          });
+        }
       });
     }
   }
 
   private _compile(): DocumentFragment {
     const fragment = document.createElement('template');
-
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
       ...this.props, children: this.children, refs: this.refs,
@@ -210,10 +255,10 @@ export default class Block<P = any> {
   }
 
   show() {
-    this.getContent().classList.remove('hidden');
+    this.getContent().style.display = 'flex';
   }
 
   hide() {
-    this.getContent().classList.add('hidden');
+    this.getContent().style.display = 'none';
   }
 }

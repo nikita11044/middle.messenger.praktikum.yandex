@@ -1,0 +1,10 @@
+.user-label {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.user-label__delete-user {
+  cursor: pointer;
+}

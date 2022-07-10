@@ -10,7 +10,6 @@ interface UserDataElementProps {
   inputType: InputTypeAttribute;
   placeholder?: string;
   elementValue?: string;
-  events?: { children?: Record<string, Record<string, () => void>> }
 }
 
 export class UserDataElement extends Block {
@@ -23,7 +22,7 @@ export class UserDataElement extends Block {
               this.getContent().classList.remove('empty-field');
               this.refs.errorText.setProps({ error: '' });
             },
-            blur: (e: FocusEvent) => {
+            blur: (e: Event) => {
               const targetInput = e.target as HTMLInputElement;
               if (targetInput.value !== '') {
                 this.refs.errorText.setProps({ error: errorInField(props.customValidationOption || props.formValue, targetInput.value) });
@@ -34,7 +33,7 @@ export class UserDataElement extends Block {
       }
       : {};
 
-    super({ ...props, events });
+    super(props, events);
   }
 
   showError(error: string): void {

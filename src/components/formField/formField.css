@@ -2,7 +2,7 @@ $blue: #3369f3;
 $fadeGrey: #999;
 $red: #ff2f2f;
 
-.access__field {
+.form__field {
   display: inline-flex;
   position: relative;
   flex-direction: column;
@@ -20,7 +20,7 @@ $red: #ff2f2f;
   }
 }
 
-.access__field_is-empty::after {
+.form__field_is-empty::after {
   border-bottom: 1px solid red;
 }
 

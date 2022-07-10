@@ -1,6 +1,9 @@
 * {
     margin: 0;
     padding: 0;
+    background: none;
+    border: none;
+    outline: none;
     box-sizing: border-box;
     font-family: 'Inter-Regular';
     outline: none;
@@ -13,16 +16,11 @@
     }
 }
 
-input {
-    border: none;
-}
-
 ul, ol {
     list-style: none;
 }
 
 textarea {
-    outline: none;
     resize: none;
 }
 

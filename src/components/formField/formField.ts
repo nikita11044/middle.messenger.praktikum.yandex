@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './accessFormField.css';
+import './formField.css';
 import { errorInField } from '../../utils';
 
 interface AccessFormFieldProps {
@@ -9,22 +9,19 @@ interface AccessFormFieldProps {
   label: string;
   inputType: InputTypeAttribute;
   error?: string;
-  events?: { children?: Record<string, Record<string, (e: FocusEvent) => void>> }
 }
 
-export class AccessFormField extends Block<AccessFormFieldProps> {
+export class FormField extends Block<AccessFormFieldProps> {
   constructor(props: AccessFormFieldProps) {
-    super({
-      ...props,
-      events: {
-        children:
+    const events = {
+      children:
           {
             fieldInput: {
               focus: () => {
-                this.getContent().classList.remove('access__field_is-empty');
+                this.getContent().classList.remove('form__field_is-empty');
                 this.refs.errorText.setProps({ error: '' });
               },
-              blur: (e: FocusEvent) => {
+              blur: (e: Event) => {
                 const targetInput = e.target as HTMLInputElement;
                 if (targetInput.value !== '') {
                   this.refs.errorText.setProps({ error: errorInField(props.customValidationOption || props.formValue, targetInput.value) });
@@ -32,13 +29,14 @@ export class AccessFormField extends Block<AccessFormFieldProps> {
               },
             },
           },
-      },
-    });
+    };
+
+    super(props, events);
   }
 
   protected render(): string {
     return `
-      <div class="access__field">
+      <div class="form__field">
         <label class="access__label" for="{{formValue}}">{{label}}</label>
         <input class="access__input" data-append-event="fieldInput" 
         name="{{formValue}}" value="{{value}}" type="{{inputType}}" />
