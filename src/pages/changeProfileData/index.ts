@@ -2,5 +2,5 @@ import connect from '../../core/connect';
 import { Indexed } from '../../core/store';
 import { ChangeProfileData } from './changeProfileData';
 
-const connectedChangeProfileDataPage = connect((state: Indexed) => ({ ...state.currentUser }))(ChangeProfileData);
+const connectedChangeProfileDataPage = connect((state: Indexed) => ({ ...state.currentUser }), 'ChangeProfileData')(ChangeProfileData);
 export default connectedChangeProfileDataPage;

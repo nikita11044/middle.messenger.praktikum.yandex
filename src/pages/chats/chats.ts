@@ -39,6 +39,8 @@ export class ChatsPage extends Block {
     if (!authorized) {
       const router = new Router();
       router.go('/');
+    } else {
+      await chatsController.getChats();
     }
   }
 
@@ -57,7 +59,7 @@ export class ChatsPage extends Block {
                             {{{Button contained="true" title="Создать чат"}}}
                         </form> 
                 </div>
-                {{{ChatList ref="connected"}}}
+                {{{ChatList}}}
             </div>
             {{{Feed}}}
         </div>

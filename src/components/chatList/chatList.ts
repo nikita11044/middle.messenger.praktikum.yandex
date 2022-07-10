@@ -21,7 +21,7 @@ export class ChatList extends Block {
     return `
             <div>
                 <ul class="chats-list">
-                    ${chats.length > 0 ? this.props.chats.reduce((acc: string, chat: Chat) => `${acc}{{{Chat title="${chat.title}" id=${chat.id}}}}`, '') : ''}
+                    ${chats?.length > 0 ? this.props.chats.reduce((acc: string, chat: Chat) => `${acc}{{{Chat title="${chat.title}" id=${chat.id}}}}`, '') : ''}
                 </ul>
             </div>
     `;

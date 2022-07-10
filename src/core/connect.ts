@@ -2,7 +2,7 @@ import Block, { Events } from './Block';
 import store, { Indexed } from './store';
 import { isEqual } from '../utils';
 
-export default function connect(mapStateToProps: (state: Indexed) => Indexed, compareFunc?: (state: Indexed, newState: Indexed) => boolean) {
+export default function connect(mapStateToProps: (state: Indexed) => Indexed, alias: string, compareFunc?: (state: Indexed, newState: Indexed) => boolean) {
   return function (Component: typeof Block) {
     return class extends Component {
       constructor(props: Indexed, events: Events = {}) {
@@ -22,7 +22,7 @@ export default function connect(mapStateToProps: (state: Indexed) => Indexed, co
           state = newState;
         };
 
-        store.subscribe({ componentName: Component.name, func: storeUpdateCallback });
+        store.subscribe({ componentName: alias, func: storeUpdateCallback });
       }
     };
   };

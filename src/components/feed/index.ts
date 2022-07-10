@@ -4,5 +4,5 @@ import { Feed } from './feed';
 
 const connectedFeed = connect((state: Indexed) => ({
   currentChatId: state.currentChatId || null,
-}))(Feed);
+}), 'Feed')(Feed);
 export default connectedFeed;
