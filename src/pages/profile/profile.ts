@@ -3,6 +3,8 @@ import store, { Indexed } from '../../core/store';
 import HTTPTransport from '../../core/HttpTransport';
 import Router from '../../core/Router';
 import authController from '../../controllers/AuthController';
+import '../styles/common.scss';
+import '../styles/profile.scss';
 
 export default class ProfilePage extends Block {
   constructor(props?: Indexed) {

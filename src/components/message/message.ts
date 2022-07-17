@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './message.css';
+import './message.scss';
 
 interface MessageProps {
   destination: string;

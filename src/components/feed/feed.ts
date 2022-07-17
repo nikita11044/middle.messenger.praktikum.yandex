@@ -1,4 +1,4 @@
-import './feed.css';
+import './feed.scss';
 import { Block } from '../../core';
 import { errorInField } from '../../utils';
 import store, { Indexed } from '../../core/store';
@@ -13,10 +13,12 @@ export class Feed extends Block {
           submit: (e: Event) => {
             e.preventDefault();
             const input = (this.getContent().querySelector('#messageText') as HTMLInputElement);
-            const messageText = input.value;
-            input.value = '';
-            if (!errorInField('message', messageText)) {
-              chatsController.sendMessage(messageText);
+            if (input) {
+              const messageText = input.value;
+              input.value = '';
+              if (!errorInField('message', messageText)) {
+                chatsController.sendMessage(messageText);
+              }
             }
           },
         },

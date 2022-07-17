@@ -1,6 +1,5 @@
 import Block from './Block';
 import { renderDOM } from './index';
-import { isEqual } from '../utils';
 
 export default class Route {
   private _block: Block | null;

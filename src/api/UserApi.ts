@@ -3,7 +3,7 @@ import {
   PasswordRequest, ProfileRequest, SearchUserRequest, CommonResponse, ProfileResponse,
 } from './types';
 
-export class UserApi {
+export default class UserApi {
   protected httpTransport: HTTPTransport;
 
   constructor() {
@@ -15,7 +15,11 @@ export class UserApi {
   }
 
   changeAvatar(data: FormData) {
-    return this.httpTransport.put<FormData, ProfileResponse>('/profile/avatar', data, { headers: { 'Access-Control-Allow-Origin': '*', accept: 'application/json' } });
+    return this.httpTransport.put<FormData, ProfileResponse>(
+      '/profile/avatar',
+      data,
+      { headers: { 'Access-Control-Allow-Origin': '*', accept: 'application/json' } },
+    );
   }
 
   changePassword(data: PasswordRequest) {

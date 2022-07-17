@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './formField.css';
+import './formField.scss';
 import { errorInField } from '../../utils';
 
 interface AccessFormFieldProps {

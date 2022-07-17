@@ -3,6 +3,8 @@ import { errorInField } from '../../utils';
 import Router from '../../core/Router';
 import { LoginRequest } from '../../api/types';
 import authController from '../../controllers/AuthController';
+import '../styles/common.scss';
+import '../styles/access.scss';
 
 export class LoginPage extends Block {
   constructor() {

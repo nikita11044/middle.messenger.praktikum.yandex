@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './userDataElement.css';
+import './userDataElement.scss';
 import { errorInField } from '../../utils';
 
 interface UserDataElementProps {

@@ -1,4 +1,5 @@
 import { Block } from '../../core';
+import '../styles/common.scss';
 
 export class Error404Page extends Block {
   protected render(): string {

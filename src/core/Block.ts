@@ -3,10 +3,6 @@ import * as Handlebars from 'handlebars';
 import EventBus from './EventBus';
 import { isEmpty } from '../utils';
 
-type Meta<P = any> = {
-  props: P;
-};
-
 export type Events = { root?: Record<string, (e: Event) => void>, children?: Record<string, Record<string, (e: Event) => void>> };
 
 export default class Block<P = any> {
@@ -20,8 +16,6 @@ export default class Block<P = any> {
   } as const;
 
   public id = nanoid(6);
-
-  private readonly _meta: Meta;
 
   protected _element: Nullable<HTMLElement> = null;
 
@@ -37,10 +31,6 @@ export default class Block<P = any> {
 
   constructor(props?: P, events: Events = {}) {
     const eventBus = new EventBus();
-
-    this._meta = {
-      props,
-    };
 
     this.events = events;
 
@@ -78,11 +68,11 @@ export default class Block<P = any> {
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
-  private _componentDidMount(props: P) {
-    this.componentDidMount(props);
+  private _componentDidMount() {
+    this.componentDidMount();
   }
 
-  componentDidMount(props: P) {}
+  componentDidMount() {}
 
   private _componentDidUpdate(currentProps: P, incomingProps: P) {
     const response = this.componentDidUpdate(currentProps, incomingProps);
@@ -93,7 +83,7 @@ export default class Block<P = any> {
   }
 
   componentDidUpdate(currentProps: P, incomingProps: P) {
-    return true;
+    return currentProps === incomingProps;
   }
 
   public dispatchComponentDidMount() {

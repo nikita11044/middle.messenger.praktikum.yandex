@@ -2,7 +2,7 @@ import { Block } from '../../core';
 import store, { Indexed } from '../../core/store';
 import chatsController from '../../controllers/ChatsController';
 import { ChatUser } from '../../api/types';
-import './users.css';
+import './users.scss';
 
 export class Users extends Block {
   constructor(props?: Indexed) {

@@ -8,7 +8,7 @@ import {
   TokenResponse,
 } from './types';
 
-export class ChatsApi {
+export default class ChatsApi {
   protected httpTransport: HTTPTransport;
 
   constructor() {
@@ -40,6 +40,10 @@ export class ChatsApi {
   }
 
   getToken(chatId: number) {
-    return this.httpTransport.post<{}, TokenResponse>(`/token/${chatId}`, undefined, { headers: { 'Access-Control-Allow-Origin': '*', accept: 'application/json' } });
+    return this.httpTransport.post<{}, TokenResponse>(
+      `/token/${chatId}`,
+      undefined,
+      { headers: { 'Access-Control-Allow-Origin': '*', accept: 'application/json' } },
+    );
   }
 }

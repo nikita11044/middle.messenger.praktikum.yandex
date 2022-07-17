@@ -1,8 +1,9 @@
 import HTTPTransport from '../core/HttpTransport';
-import { LoginRequest, SignUpRequest, UserResponse } from './types';
-import { CommonResponse } from './types/types';
+import {
+  LoginRequest, SignUpRequest, UserResponse, CommonResponse,
+} from './types';
 
-export class AuthApi {
+export default class AuthApi {
   protected httpTransport: HTTPTransport;
 
   constructor() {

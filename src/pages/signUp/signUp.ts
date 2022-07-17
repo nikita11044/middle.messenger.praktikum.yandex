@@ -3,6 +3,8 @@ import { errorInField } from '../../utils';
 import Router from '../../core/Router';
 import { SignUpRequest } from '../../api/types';
 import authController from '../../controllers/AuthController';
+import '../styles/common.scss';
+import '../styles/access.scss';
 
 export class SignUpPage extends Block {
   constructor() {
@@ -71,7 +73,7 @@ export class SignUpPage extends Block {
         {{{FormField label="Пароль" formValue="password" ref="password" type="password"}}}
     </div>
     <div class="access__buttons-block">
-        {{{Button classes="access__button" title="Зарегистрироваться" type="submit"}}}
+        {{{Button classes="access__button" contained="true" title="Зарегистрироваться" type="submit"}}}
         {{{Link classes="access__link" to="CHATS" text="Войти"}}}
     </div>
 </form>

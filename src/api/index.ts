@@ -1,3 +1,3 @@
-export { AuthApi } from './AuthApi';
-export { ChatsApi } from './ChatsApi';
-export { UserApi } from './UserApi';
+export { default as AuthApi } from './AuthApi';
+export { default as ChatsApi } from './ChatsApi';
+export { default as UserApi } from './UserApi';

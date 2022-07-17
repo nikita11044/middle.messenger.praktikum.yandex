@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './chat.css';
+import './chat.scss';
 import store from '../../core/store';
 import chatsController from '../../controllers/ChatsController';
 

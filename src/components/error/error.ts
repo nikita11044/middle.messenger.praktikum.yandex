@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './error.css';
+import './error.scss';
 
 interface ErrorProps {
   code: number;

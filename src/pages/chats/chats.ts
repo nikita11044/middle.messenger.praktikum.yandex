@@ -2,6 +2,8 @@ import { Block } from '../../core';
 import Router from '../../core/Router';
 import chatsController from '../../controllers/ChatsController';
 import authController from '../../controllers/AuthController';
+import '../styles/common.scss';
+import '../styles/chats.scss';
 
 export class ChatsPage extends Block {
   constructor() {

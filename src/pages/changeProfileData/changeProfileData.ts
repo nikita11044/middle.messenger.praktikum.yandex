@@ -1,11 +1,13 @@
 import { Block } from '../../core';
-import { errorInField } from '../../utils';
+import { fieldValidation } from '../../utils';
 import store, { Indexed } from '../../core/store';
 import HTTPTransport from '../../core/HttpTransport';
 import Router from '../../core/Router';
 import profileController from '../../controllers/ProfileController';
 import { ProfileRequest } from '../../api/types';
 import authController from '../../controllers/AuthController';
+import '../styles/common.scss';
+import '../styles/profile.scss';
 
 export class ChangeProfileData extends Block {
   constructor(props?: Indexed) {
@@ -16,29 +18,18 @@ export class ChangeProfileData extends Block {
           submit: async (e: Event) => {
             e.preventDefault();
 
-            let hasEmptyFields;
-            let hasErrors;
-
             const changeProfileData: ProfileRequest = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
               acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
               return acc;
             }, {} as any);
 
-            Object.entries(changeProfileData).forEach(([field, value]) => {
-              if (value === '' && field !== 'display_name') {
-                hasEmptyFields = true;
-                this.refs[field].getContent().classList.add('empty-field');
-              }
-              if (errorInField(field, value)) {
-                hasErrors = true;
-              }
-            });
-
-            const dataChanged = Object.entries(changeProfileData).some(([key, val]) => store.getState().currentUser[key] !== val);
+            const [hasEmptyFields, hasErrors] = fieldValidation<ProfileRequest>(changeProfileData, this.refs);
 
             if (hasEmptyFields || hasErrors) {
               return;
             }
+
+            const dataChanged = Object.entries(changeProfileData).some(([key, val]) => store.getState().currentUser[key] !== val);
 
             if (dataChanged) {
               try {

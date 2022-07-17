@@ -1,10 +1,12 @@
 import { Block } from '../../core';
-import { errorInField } from '../../utils';
+import { fieldValidation } from '../../utils';
 import UserDataElement from '../../components/userDataElement';
 import profileController from '../../controllers/ProfileController';
 import store from '../../core/store';
 import authController from '../../controllers/AuthController';
 import Router from '../../core/Router';
+import '../styles/common.scss';
+import '../styles/profile.scss';
 
 export class ChangePassword extends Block {
   constructor() {
@@ -14,23 +16,13 @@ export class ChangePassword extends Block {
           changePasswordForm: {
             submit: async (e: Event) => {
               e.preventDefault();
-              let hasEmptyFields;
-              let hasErrors;
 
               const changePasswordData: Record<string, string> = Object.entries(this.refs).reduce((acc, [fieldName, ref]) => {
                 acc[fieldName] = (ref.getContent().querySelector('input') as HTMLInputElement).value;
                 return acc;
               }, {} as any);
 
-              Object.entries(changePasswordData).forEach(([field, value]) => {
-                if (value === '') {
-                  hasEmptyFields = true;
-                  this.refs[field].getContent().classList.add('empty-field');
-                }
-                if (errorInField('password', value)) {
-                  hasErrors = true;
-                }
-              });
+              const [hasEmptyFields, hasErrors] = fieldValidation<Record<string, string>>(changePasswordData, this.refs);
 
               if (hasEmptyFields || hasErrors) {
                 return;

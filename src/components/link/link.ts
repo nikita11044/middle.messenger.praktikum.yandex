@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './link.css';
+import './link.scss';
 import Router from '../../core/Router';
 
 interface LinkProps {

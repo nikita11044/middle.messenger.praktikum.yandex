@@ -1,4 +1,4 @@
-import './chatList.css';
+import './chatList.scss';
 import { Block } from '../../core';
 import store from '../../core/store';
 import chatsController from '../../controllers/ChatsController';

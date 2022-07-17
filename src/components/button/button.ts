@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './button.css';
+import './button.scss';
 
 interface ButtonProps {
   classes?: string;

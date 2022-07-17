@@ -1,4 +1,3 @@
-import './messageList.css';
 import { Block } from '../../core';
 import store from '../../core/store';
 import chatsController from '../../controllers/ChatsController';

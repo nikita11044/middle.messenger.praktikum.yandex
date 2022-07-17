@@ -1,7 +1,7 @@
 import { Block } from '../../core';
 import chatsController from '../../controllers/ChatsController';
 import store from '../../core/store';
-import './userLabel.css';
+import './userLabel.scss';
 
 interface UserLabelProps {
   id: number;

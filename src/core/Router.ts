@@ -1,18 +1,19 @@
 import Route from './Route';
 
 export default class Router {
-  public routes: Route[];
+  public routes?: Route[];
 
-  public history: History;
+  public history?: History;
 
   private static _instance: Router;
 
-  private _currentRoute: Route | null;
+  private _currentRoute?: Route | null;
 
-  private readonly _rootQuery: string;
+  private readonly _rootQuery?: string;
 
   constructor(rootQuery: string = '#app') {
     if (Router._instance) {
+      // eslint-disable-next-line no-constructor-return
       return Router._instance;
     }
 
@@ -27,7 +28,7 @@ export default class Router {
   use(pathname: string, block: any) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
-    this.routes.push(route);
+    this.routes!.push(route);
 
     return this;
   }
@@ -53,24 +54,24 @@ export default class Router {
     }
 
     this._currentRoute = route;
-    route.render();
+    route!.render();
   }
 
   go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+    this.history!.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
   back() {
-    this.history.back();
+    this.history!.back();
   }
 
   forward() {
-    this.history.forward();
+    this.history!.forward();
   }
 
   getRoute(pathname: string) {
-    return this.routes.find((route) => route.match(pathname));
+    return this.routes!.find((route) => route.match(pathname));
   }
 
   static getQueryParam(param: string) {
