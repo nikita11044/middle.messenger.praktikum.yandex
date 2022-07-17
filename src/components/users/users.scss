@@ -1,0 +1,27 @@
+$lightBackground: #fbfbfb;
+
+.users {
+  background-color: $lightBackground;
+}
+
+.users__users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.users__title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.users__delete-button-wrapper {
+  padding: 20px 10px;
+}
+
+.delete-chat {
+  margin: 0 20px;
+}

@@ -1,0 +1,31 @@
+$dark: #1e1e1e;
+$messageTo: #f8f8f8;
+$messageFrom: #e4edfd;
+
+.message {
+  position: relative;
+  width: max-content;
+  max-width: 402px;
+  margin-bottom: 10px;
+  padding: 11px;
+  border-radius: 12px;
+  color: $dark;
+
+  &:first-of-type {
+    margin-top: 10px;
+  }
+
+  &.message_to {
+    background-color: $messageTo;
+  }
+
+  &.message_from {
+    margin-left: auto;
+    background-color: $messageFrom;
+  }
+}
+
+.message__text {
+  font-size: 12px;
+  line-height: 15px;
+}

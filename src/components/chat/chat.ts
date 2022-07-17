@@ -1,38 +1,36 @@
 import { Block } from '../../core';
-import './chat.css';
+import './chat.scss';
+import store from '../../core/store';
+import chatsController from '../../controllers/ChatsController';
 
 interface ChatProps {
-  selected: boolean;
-  avatarUrl?: string;
-  chatName: string;
-  lastMessageTime: Date;
-  lastMessage: string;
-  lastMessageCount: number;
+  id: number;
+  title: string;
 }
 
 export class Chat extends Block<ChatProps> {
   constructor(props: ChatProps) {
-    super({ ...props });
+    const events = {
+      root: {
+        click: async (e: Event) => {
+          e.preventDefault();
+          e.stopPropagation();
+          await chatsController.getChatUsers(this.props.id);
+          store.set('currentChatId', this.props.id);
+        },
+      },
+    };
+
+    super(props, events);
   }
 
   protected render(): string {
     return `
-      <li {{#if selected}} class="chat chat_selected" {{else}} class="chat" {{/if}}>
-        {{#if avatarUrl}}
-        
-        {{else}}
+      <li class="chat">
             <div class="avatar-placeholder"></div>
-        {{/if}}
             <div class="chat-description">
                 <div class="chat-description__row">
-                <h3 class="chat-name">{{chatName}}</h3>
-                <time class="chat__last-message-time">{{lastMessageTime}}</time>
-            </div>
-            <div class="chat-description__row">
-                <p class="chat__chat-last-message">{{{lastMessage}}}</p>
-                    {{#if lastMessageCount}}
-                        <div class="chat__last-message-count">{{lastMessageCount}}</div>
-                    {{/if}}
+                <h3 class="chat-name">{{title}}</h3>
             </div>
          </div>
        </li>

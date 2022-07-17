@@ -5,7 +5,7 @@ interface PropsSpecifiedBlock<P = any> {
   new(props: P): Block;
 }
 
-export default function registerComponent<P extends any>(Component: PropsSpecifiedBlock<P>, alias: string) {
+export default function inscribeComponent<P extends any>(Component: PropsSpecifiedBlock<P>, alias: string) {
   Handlebars.registerHelper(alias, function (this: P, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
     if (!data.root.children) {
       data.root.children = {};
@@ -18,8 +18,8 @@ export default function registerComponent<P extends any>(Component: PropsSpecifi
     const { children, refs } = data.root;
 
     (Object.keys(hash) as any).forEach((key: keyof P) => {
-      if (this[key]) {
-        hash[key] = hash[key].replace(new RegExp(`{{${key}}}`, 'i'), this[key]);
+      if (this[key] && typeof hash[key] === 'function') {
+        hash[key] = hash[key].replace(new RegExp(`{{{${String(key)}}}`, 'i'), this[key]);
       }
     });
 

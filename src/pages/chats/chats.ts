@@ -1,71 +1,71 @@
 import { Block } from '../../core';
-import { Store } from '../../store';
-import { errorInField, getComponentsLayoutFromArray } from '../../utils';
+import Router from '../../core/Router';
+import chatsController from '../../controllers/ChatsController';
+import authController from '../../controllers/AuthController';
+import '../styles/common.scss';
+import '../styles/chats.scss';
 
-interface ChatsPageProps {
-  events: { children?: Record<string, Record<string, (e: SubmitEvent) => void>> }
-}
-
-export class ChatsPage extends Block<ChatsPageProps> {
+export class ChatsPage extends Block {
   constructor() {
-    super({
-      events: {
-        children: {
-          messageForm: {
-            submit: (e: SubmitEvent) => {
+    const events = {
+      children:
+        {
+          createChatForm: {
+            submit: async (e: Event) => {
               e.preventDefault();
-              const messageText = (this.getContent().querySelector('#messageText') as HTMLInputElement).value;
-              if (!errorInField('message', messageText)) {
-                console.log({ messageText });
+
+              const input = (this.refs.chatName.getContent().querySelector('input') as HTMLInputElement);
+
+              const title = input.value;
+              input.value = '';
+
+              if (title === '') {
+                this.refs.chatName.getContent().classList.add('form__field_is-empty');
+                return;
+              }
+
+              try {
+                await chatsController.createChat({ title });
+              } catch (err) {
+                alert(err);
               }
             },
           },
         },
-      },
-    });
+    };
+    super({}, events);
+  }
+
+  async preInit() {
+    const authorized = await authController.isAuth();
+    if (!authorized) {
+      const router = new Router();
+      router.go('/');
+    } else {
+      await chatsController.getChats();
+    }
   }
 
   protected render(): string {
-    const chatsLayout = getComponentsLayoutFromArray('Chat', Store.getAppState().chats);
-    const messageLayout = getComponentsLayoutFromArray('Message', Store.getAppState().messages);
-
     return `
-      <main>
+
         <div class="chats">
             <div class="chats__chat-list-wrapper">
-            {{{Link classes="profile-button" to="PROFILE" text="Профиль"}}}
-            <div class="search-field">
-                <input class="search-field__input" id="chatName" name="chatName" placeholder=" Поиск" type="text" />
-            </div>
-            <ul class="chats-list">
-                ${chatsLayout}
-            </ul>
-            </div>
-            <div class="feed">
-                <div class="feed__feed-panel">
-                    <div class="chat-info">
-                        <div class="avatar-placeholder"></div>
-                        <h3 class="chat-name">Вадим</h3>
-                    </div>
-                    <button class="icon-button icon-button_menu"></button>
+            {{{Link classes="profile-button" to="/profile" text="Профиль"}}}
+                <div class="search-field">
+                    <input class="search-field__input" id="chatName" name="chatName" placeholder=" Поиск" type="text" />
                 </div>
-                <div class="messages-wrapper">
-                    <section class="date-message-group">
-                        <div class="date-message-group__date">12 мая</div>
-                        <ul class="message-list">
-                            ${messageLayout}
-                        </ul>  
-                    </section>
+                <div class="create-chat">
+                        <form class="chat__form" data-append-event="createChatForm">
+                            {{{FormField label="Название чата" ref="chatName" formValue="chatName" inputType="text"}}}
+                            {{{Button contained="true" title="Создать чат"}}}
+                        </form> 
                 </div>
-                <form data-append-event="messageForm" class="message-form" name="message-form">
-                    <input class="message-form__attachment-input" type="file" name="image" form="message-form"/>
-                    <button class="icon-button icon-button_attachment"></button>
-                    <input id="messageText" class="message-form__message-input" oninput="this.parentNode.dataset.value = this.value" name="message" form="message-form" placeholder="Сообщение"/>
-                    <button class="icon-button icon-button_arrow-right" type="submit"></button>
-                </form>
+                {{{ChatList}}}
             </div>
+            {{{Feed}}}
         </div>
-       </main>
+
     `;
   }
 }

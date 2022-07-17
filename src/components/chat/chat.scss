@@ -1,0 +1,43 @@
+$blue: #3369f3;
+$fadeBlue: #e4edfd;
+$dark: #1e1e1e;
+$gray: #999;
+$fadeGray: #eaeaea;
+$lightBackground: #fbfbfb;
+$messageTo: #f8f8f8;
+$messageFrom: #e4edfd;
+
+.chat {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 67px;
+  margin: 0 10px;
+  padding: 10px;
+  border-bottom: 1px solid $fadeGray;
+  cursor: pointer;
+
+  &:first-of-type {
+    border-top: 1px solid $fadeGray;
+  }
+
+  &:last-of-type {
+    margin-bottom: calc(33% + 12px);
+  }
+
+  &.chat_selected {
+    background-color: $fadeBlue;
+    margin: 0;
+    padding: 10px 20px;
+  }
+}
+
+.chat-description {
+  width: 80%;
+}
+
+.chat-description__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

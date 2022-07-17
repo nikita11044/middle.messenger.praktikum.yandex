@@ -11,6 +11,11 @@
         "prefer-destructuring": "off",
         "max-len": "off",
         "prefer-default-export": "off",
-        "no-restricted-exports": "off"
+        "no-restricted-exports": "off",
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
+        "no-restricted-syntax": "off",
+        "no-prototype-builtins": "off",
+        "no-continue": "off"
     }
 }

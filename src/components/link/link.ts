@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import './link.css';
+import './link.scss';
 import Router from '../../core/Router';
 
 interface LinkProps {
@@ -7,17 +7,25 @@ interface LinkProps {
   imageUrl?: string;
   to: string;
   text?: string;
-  events?: { root?: Record<string, (e: MouseEvent) => void> }
 }
 
 export class Link extends Block<LinkProps> {
   constructor(props: LinkProps) {
-    const onClick = (e: MouseEvent) => {
-      e.preventDefault();
-      Router.navigate(props.to);
+    const events = {
+      root: {
+        click: (e: Event) => {
+          e.preventDefault();
+          const router = new Router();
+          if (this.props.to === 'STEP_BACK') {
+            router.back();
+          } else {
+            router.go(this.props.to);
+          }
+        },
+      },
     };
 
-    super({ ...props, events: { root: { click: onClick } } });
+    super(props, events);
   }
 
   protected render(): string {

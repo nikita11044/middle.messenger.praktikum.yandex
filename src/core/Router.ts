@@ -1,35 +1,80 @@
-import SignUpPage from '../pages/signUp';
-import { renderDOM } from './index';
-import ChatsPage from '../pages/chats';
-import ProfilePage from '../pages/profile';
-import LoginPage from '../pages/login';
-import ChangeProfileData from '../pages/changeProfileData';
-import ChangePassword from '../pages/changePassword';
-import Error500Page from '../pages/500';
-import Error404Page from '../pages/404';
+import Route from './Route';
 
 export default class Router {
-  static ROUTES: Record<string, any> = {
-    SIGN_IN: LoginPage,
-    SIGN_UP: SignUpPage,
-    CHATS: ChatsPage,
-    PROFILE: ProfilePage,
-    CHANGE_PROFILE_DATA: ChangeProfileData,
-    CHANGE_PASSWORD: ChangePassword,
-    ERROR_404: Error404Page,
-    ERROR_500: Error500Page,
-  } as const;
+  public routes?: Route[];
 
-  private static _path: Array<string> = [];
+  public history?: History;
 
-  public static navigate(to: string | 'STEP_BACK') {
-    if (to === 'STEP_BACK') {
-      this._path.pop();
-      const prev = (this._path.length > 1 ? this._path[this._path.length - 1] : this._path[0]) as string;
-      renderDOM(new Router.ROUTES[prev]());
-    } else {
-      this._path.push(to);
-      renderDOM(new Router.ROUTES[to]());
+  private static _instance: Router;
+
+  private _currentRoute?: Route | null;
+
+  private readonly _rootQuery?: string;
+
+  constructor(rootQuery: string = '#app') {
+    if (Router._instance) {
+      // eslint-disable-next-line no-constructor-return
+      return Router._instance;
     }
+
+    this.routes = [];
+    this.history = window.history;
+    this._currentRoute = null;
+    this._rootQuery = rootQuery;
+
+    Router._instance = this;
+  }
+
+  use(pathname: string, block: any) {
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+
+    this.routes!.push(route);
+
+    return this;
+  }
+
+  start() {
+    window.onpopstate = ((event: PopStateEvent) => {
+      const target = event.currentTarget as Window;
+      this._onRoute(target!.location.pathname);
+    });
+
+    this._onRoute(window.location.pathname);
+  }
+
+  private _onRoute(pathname: string) {
+    let route = this.getRoute(pathname);
+
+    if (!route) {
+      route = this.getRoute('*');
+    }
+
+    if (this._currentRoute && this._currentRoute !== route) {
+      this._currentRoute.leave();
+    }
+
+    this._currentRoute = route;
+    route!.render();
+  }
+
+  go(pathname: string) {
+    this.history!.pushState({}, '', pathname);
+    this._onRoute(pathname);
+  }
+
+  back() {
+    this.history!.back();
+  }
+
+  forward() {
+    this.history!.forward();
+  }
+
+  getRoute(pathname: string) {
+    return this.routes!.find((route) => route.match(pathname));
+  }
+
+  static getQueryParam(param: string) {
+    return new URLSearchParams(document.location.search).get(param);
   }
 }

@@ -1,20 +1,97 @@
-/**
- * Метод для генерации разметки для нескольких компонентов одного типа
- * @param component - имя компонента (classname)
- * @param data - массив объектов с данными для генерации компонентов (1 объект = 1 instance компонета)
- * @param customAttributes - дополнительные аттрибуты, которые будут приписаны каждому instance
- * @returns {string} строка с разметкой
- * @type {(component : string, data : Array<Record<string, any>>, ....customAttributes : Array<string>) => string}
- * */
-export function getComponentsLayoutFromArray(component: string, data: Array<Record<string, any>>, ...customAttributes: Array<string>): string {
-  return data.reduce((layout: string, dataElement: any) => {
-    const mainAttributes = Object.entries(dataElement)
-      .reduce((acc, [key, val]) => `${acc} ${key}="${val}"`, '');
+export type PlainObject<T = any> = {
+  [key in string]: T;
+};
 
-    if (customAttributes) {
-      return `${layout}{{{${component} ${mainAttributes} ${customAttributes.join(' ')}}}}`;
+function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
+  for (const p in rhs) {
+    if (!rhs.hasOwnProperty(p)) {
+      continue;
     }
 
-    return `${layout}{{{${component} ${mainAttributes}}}}`;
-  }, '');
+    try {
+      if (rhs[p].constructor === Object) {
+        rhs[p] = merge(lhs[p] as PlainObject, rhs[p] as PlainObject);
+      } else {
+        lhs[p] = rhs[p];
+      }
+    } catch (e) {
+      lhs[p] = rhs[p];
+    }
+  }
+
+  return lhs;
+}
+
+export function set(obj: PlainObject | unknown, path: string, val: unknown): PlainObject | unknown {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
+
+  const res = path.split('.').reduceRight<PlainObject>((acc, key) => ({
+    [key]: acc,
+  }), val as any);
+  return merge(obj as PlainObject, res);
+}
+
+export const isArray = (val: unknown): val is [] => Array.isArray(val);
+
+export const isPlainObject = (val: unknown): val is PlainObject => (
+  typeof val === 'object'
+    && val !== null
+    && val.constructor === Object
+    && Object.prototype.toString.call(val) === '[object Object]'
+);
+
+export const isArrayOrPlainObject = (value: unknown): value is [] | PlainObject => isPlainObject(value) || isArray(value);
+
+export const isEqual = (lhs: PlainObject, rhs: PlainObject): boolean => {
+  if (Object.keys(lhs).length !== Object.keys(rhs).length) {
+    return false;
+  }
+
+  for (const [key, val] of Object.entries(lhs)) {
+    const rightVal = rhs[key];
+    if (isArrayOrPlainObject(val) && isArrayOrPlainObject(rightVal)) {
+      if (!isEqual(val, rightVal)) {
+        return false;
+      }
+    }
+
+    if (val !== rightVal) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+export function isEmpty(obj: object): boolean {
+  return obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype;
+}
+
+export function getKey(key: string, parentKey?: string) {
+  return parentKey ? `${parentKey}[${key}]` : key;
+}
+
+export function getParams(data: PlainObject | [], parentKey?: string) {
+  const res: [string, string][] = [];
+
+  for (const [key, value] of Object.entries(data)) {
+    if (isArrayOrPlainObject(value)) {
+      res.push(...getParams(value, getKey(key, parentKey)));
+    } else {
+      res.push([
+        getKey(key, parentKey),
+        encodeURIComponent(String(value)),
+      ]);
+    }
+  }
+
+  return res;
+}
+
+export function queryStringify(data: PlainObject) {
+  return getParams(data)
+    .map((arr) => arr.join('='))
+    .join('&');
 }
