@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
-    "typeRoots": ["node_modules/@types", "typings/app.d.ts", "typings/layout.d.ts"],
+    "typeRoots": ["node_modules/@types", "typings/layout.d.ts"],
     "resolveJsonModule": true,
     "sourceMap": true,
     "esModuleInterop": true,
@@ -12,6 +12,6 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   }
 }

@@ -1,9 +1,11 @@
-import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
+import { v4 as uuidv4 } from 'uuid';
 import EventBus from './EventBus';
 import { isEmpty } from '../utils';
 
 export type Events = { root?: Record<string, (e: Event) => void>, children?: Record<string, Record<string, (e: Event) => void>> };
+
+type Nullable<T> = T | null;
 
 export default class Block<P = any> {
   static EVENTS: Record<string, string> = {
@@ -15,7 +17,7 @@ export default class Block<P = any> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = nanoid(6);
+  public id = uuidv4();
 
   protected _element: Nullable<HTMLElement> = null;
 
@@ -173,7 +175,7 @@ export default class Block<P = any> {
     }) as unknown as P;
   }
 
-  private static _createDocumentElement(tagName: string) {
+  private static _createDocumentElement(tagName: string = 'div') {
     return document.createElement(tagName);
   }
 
