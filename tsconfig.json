@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~*": ["./*"]
+    },
     "target": "ES2022",
     "module": "commonjs",
     "typeRoots": ["node_modules/@types", "typings/layout.d.ts"],

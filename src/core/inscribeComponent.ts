@@ -1,5 +1,7 @@
-import Handlebars, { HelperOptions } from 'handlebars';
+import { HelperOptions } from 'handlebars';
 import Block from './Block';
+
+const Handlebars = require('handlebars');
 
 interface PropsSpecifiedBlock<P = any> {
   new(props: P): Block;

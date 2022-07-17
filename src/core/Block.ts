@@ -84,8 +84,9 @@ export default class Block<P = any> {
     this._render();
   }
 
-  componentDidUpdate(currentProps: P, incomingProps: P) {
-    return currentProps === incomingProps;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidUpdate(_currentProps: P, _incomingProps: P) {
+    return true;
   }
 
   public dispatchComponentDidMount() {
