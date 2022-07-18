@@ -9,7 +9,7 @@
 
 [Ссылка на heroku](https://telechat110444.herokuapp.com/)
 
-[Ссылка на pull-request](https://github.com/nikita11044/middle.messenger.praktikum.yandex/pull/3)
+[Ссылка на pull-request](https://github.com/nikita11044/middle.messenger.praktikum.yandex/pull/4)
 
 ## Установка
 - `npm install` — установка зависимостей
